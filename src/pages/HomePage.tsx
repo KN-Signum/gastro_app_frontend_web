@@ -6,6 +6,7 @@ import InfoCard from '../components/cards/InfoCard';
 import { mockAppointments, mockPatients } from '../mock_data';
 import PatientTable from '../components/tables/PatientTable';
 import AppointmentCalendar from '../components/calendars/AppointmentCalendar';
+import TimetableGrid from '../components/grid/TimetableGrid';
 
 export default function HomePage() {
   const { t } = useTranslation();
@@ -38,6 +39,7 @@ export default function HomePage() {
       />
       <PatientTable patients={mockPatients} />
       <AppointmentCalendar appointments={mockAppointments} />
+      <TimetableGrid />
     </div>
   );
 }

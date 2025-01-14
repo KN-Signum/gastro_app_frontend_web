@@ -49,5 +49,8 @@
     ],
     "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     "today": "Today"
+  },
+  "grid": {
+    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri"]
   }
 }
