@@ -1,0 +1,53 @@
+{
+  "home": {
+    "title": "Welcome to home page."
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "patients": "Patients",
+    "calendar": "Calendar",
+    "help": "Help",
+    "settings": "Settings"
+  },
+  "navbar": {
+    "welcome": "Welcome dr"
+  },
+  "cards": {
+    "surveys": {
+      "title": "Surveys",
+      "subtitle": "new surveys this week"
+    },
+    "patients": {
+      "title": "Patients",
+      "subtitle": "number of patients"
+    },
+    "state-of-emergency": {
+      "title": "State of emergency",
+      "subtitle": "patients in state of emergency"
+    }
+  },
+  "patient-list": {
+    "full_name": "Full name",
+    "mayo_stance": "Mayo stance",
+    "date_of_last_visit": "Date of last visit",
+    "drugs": "Drugs"
+  },
+  "calendar": {
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "today": "Today"
+  }
+}

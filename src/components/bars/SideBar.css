@@ -1,0 +1,10 @@
+.menu-large {
+  font-size: 20px;
+}
+
+.menu-item-large {
+  padding: 60px 60px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

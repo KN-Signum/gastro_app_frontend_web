@@ -1,0 +1,53 @@
+{
+  "home": {
+    "title": "Witamy na stronie głównej."
+  },
+  "sidebar": {
+    "dashboard": "Panel",
+    "patients": "Pacjenci",
+    "calendar": "Kalendarz",
+    "help": "Pomoc",
+    "settings": "Ustawienia"
+  },
+  "navbar": {
+    "welcome": "Witaj doktor"
+  },
+  "cards": {
+    "surveys": {
+      "title": "Ankiety",
+      "subtitle": "nowych ankiet w tym tygodniu"
+    },
+    "patients": {
+      "title": "Pacjenci",
+      "subtitle": "liczba pacjentów"
+    },
+    "state-of-emergency": {
+      "title": "Stany alarmowe",
+      "subtitle": "pacjentów w stanie alarmowym"
+    }
+  },
+  "patient-list": {
+    "full_name": "Imię i nazwisko",
+    "mayo_stance": "Stan mayo",
+    "date_of_last_visit": "Data ostatniej wizyty",
+    "drugs": "Leki"
+  },
+  "calendar": {
+    "months": [
+      "Styczeń",
+      "Luty",
+      "Marzec",
+      "Kwiecień",
+      "Maj",
+      "Czerwiec",
+      "Lipiec",
+      "Sierpień",
+      "Wrzesień",
+      "Październik",
+      "Listopad",
+      "Grudzień"
+    ],
+    "weekdays": ["Nie", "Pon", "Wt", "Śr", "Czw", "Pt", "Sob"],
+    "today": "Dzisiaj"
+  }
+}
