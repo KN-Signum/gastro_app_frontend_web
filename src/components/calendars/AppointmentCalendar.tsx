@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { GetAppointmentDto } from '../../dto/AppointmentDto';
 import { Badge, Calendar } from 'uiw';
+import './AppointmentCalendar.css';
 
 export default function AppointmentCalendar({
   appointments,
@@ -33,7 +34,7 @@ export default function AppointmentCalendar({
   }) as unknown as string[];
 
   return (
-    <div>
+    <div className="calendar">
       <Calendar
         data={filterData(data)}
         monthLabel={monthLabels}

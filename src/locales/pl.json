@@ -2,6 +2,24 @@
   "home": {
     "title": "Witamy na stronie głównej."
   },
+  "login": {
+    "email": "Email",
+    "email_placeholder": "Proszę podać swój email.",
+    "email_help": "Email musi zawierać '@' i '.'",
+    "email_not_empty": "Email nie może być pusty.",
+    "password": "Hasło",
+    "password_placeholder": "Proszę podać swoje hasło.",
+    "password_help": "Hasło musi zawierać co najmniej 6 znaków, wielką literę, znak specjalny.",
+    "password_not_empty": "Hasło nie może być puste.",
+    "login": "Zaloguj",
+    "reset": "Resetuj"
+  },
+  "notify": {
+    "success": "Sukces",
+    "error": "Błąd",
+    "warning": "Ostrzeżenie",
+    "info": "Informacja"
+  },
   "sidebar": {
     "dashboard": "Panel",
     "patients": "Pacjenci",
@@ -26,11 +44,55 @@
       "subtitle": "pacjentów w stanie alarmowym"
     }
   },
+  "drug": {
+    "name": "Nazwa",
+    "assign_drug": "przypisz lek",
+    "dosage": "Dawkowanie",
+    "additional_info": "Dodatkowe informacje",
+    "doses_taken": "Dawki wzięte",
+    "doses_left": "Dawki pozostałe",
+    "start_date": "Data rozpoczęcia",
+    "end_date": "Data zakończenia",
+    "submit": "Zatwierdź",
+    "submit_success": "Lek przypisany pomyślnie",
+    "submit_error": "Błąd podczas przypisywania leku",
+    "errors": {
+      "name_required": "Nazwa jest wymagana",
+      "dosage_required": "Dawkowanie jest wymagane",
+      "start_date_required": "Data rozpoczęcia jest wymagana",
+      "end_date_required": "Data zakończenia jest wymagana",
+      "doses_taken_positive": "Dawki wzięte muszą być liczbą dodatnią",
+      "doses_left_positive": "Dawki pozostałe muszą być liczbą dodatnią"
+    }
+  },
+  "patient": {
+    "add": "Dodaj pacjenta",
+    "assign": "Przypisz pacjenta",
+    "back": "Powrót",
+    "submit": "Zatwierdź"
+  },
   "patient-list": {
     "full_name": "Imię i nazwisko",
     "mayo_stance": "Stan mayo",
     "date_of_last_visit": "Data ostatniej wizyty",
-    "drugs": "Leki"
+    "drugs": "Leki",
+    "assign": "przypisz",
+    "dismiss": "wypisz"
+  },
+  "full-patient-list": {
+    "number": "Nr",
+    "full_name": "Imię i nazwisko",
+    "weigth": "Waga [kg]",
+    "height": "Wzrost [cm]",
+    "age": "Wiek",
+    "cdai_score": "Wynik CDAI",
+    "email": "Email",
+    "phone_number": "Numer telefonu",
+    "assign_drug": "Przypisz lek",
+    "phone_number_not_empty": "Numer telefonu nie może być pusty",
+    "weigth_not_empty": "Waga nie może być pusta",
+    "height_not_empty": "Wzrost nie może być pusty",
+    "age_not_empty": "Wiek nie może być pusty"
   },
   "calendar": {
     "months": [

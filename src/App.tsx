@@ -4,14 +4,25 @@ import GlobalHomePage from './pages/GlobalHomePage';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
 import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
+import PatientsPage from './pages/patient/PatientsPage';
+import TestPage from './pages/TestPage';
+import CalendarPage from './pages/CalendarPage';
+import AssignPatientPage from './pages/patient/AssignPatientPage';
 
 function App() {
   return (
     <BrowserRouter>
       <I18nextProvider i18n={i18n}>
         <Routes>
-          <Route path="/" element={<GlobalHomePage />} />
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/" element={<GlobalHomePage />}>
+            <Route path="home" element={<HomePage />} />
+            <Route path="patients" element={<PatientsPage />} />
+            <Route path="assign_patient" element={<AssignPatientPage />} />
+            <Route path="calendar" element={<CalendarPage />} />
+          </Route>
+          <Route path="test" element={<TestPage />} />
+          <Route path="login" element={<LoginPage />} />
         </Routes>
       </I18nextProvider>
     </BrowserRouter>

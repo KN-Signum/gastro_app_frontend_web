@@ -1,0 +1,25 @@
+.global-home-page {
+  display: flex;
+  align-items: flex-start;
+  height: 100vh;
+}
+
+.global-home-page .content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.global-home-page .side-nav-bar {
+  margin: 0;
+  padding: 0;
+}
+
+.global-home-page .outlet-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5%;
+  width: 100%;
+}

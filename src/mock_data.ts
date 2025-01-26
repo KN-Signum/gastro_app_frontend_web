@@ -1,3 +1,6 @@
+import { GetFullPatientDto } from './dto/PatientDto';
+import { GetAllPatientsPatientDto } from './dto/PatientDto';
+
 export const mockPatients = [
   {
     full_name: 'John Doe',
@@ -45,5 +48,115 @@ export const mockAppointments = [
     patient_id: '4',
     date_of_appointement: '2025/01/04',
     time_of_appointement: '13:00',
+  },
+];
+
+export const mockFullPatients: GetFullPatientDto[] = [
+  {
+    id: '1',
+    name: 'John Doe',
+    weight: 70,
+    height: 175,
+    age: 30,
+    cdai_score: 2,
+    email: 'john.doe@example.com',
+    phone_number: '123-456-7890',
+  },
+  {
+    id: '2',
+    name: 'Jane Doe',
+    weight: 65,
+    height: 165,
+    age: 28,
+    cdai_score: 3,
+    email: 'jane.doe@example.com',
+    phone_number: '098-765-4321',
+  },
+  {
+    id: '3',
+    name: 'Jack Doe',
+    weight: 80,
+    height: 180,
+    age: 35,
+    cdai_score: 1,
+    email: 'jack.doe@example.com',
+    phone_number: '555-555-5555',
+  },
+  {
+    id: '4',
+    name: 'Jill Doe',
+    weight: 55,
+    height: 160,
+    age: 25,
+    cdai_score: 4,
+    email: 'jill.doe@example.com',
+    phone_number: '444-444-4444',
+  },
+];
+
+export const mockAllPatients: GetAllPatientsPatientDto[] = [
+  {
+    id: '1',
+    name: 'John Doe',
+  },
+  {
+    id: '2',
+    name: 'Jane Doe',
+  },
+  {
+    id: '3',
+    name: 'Jack Doe',
+  },
+  {
+    id: '4',
+    name: 'Jill Doe',
+  },
+  {
+    id: '1',
+    name: 'John Doe',
+  },
+  {
+    id: '2',
+    name: 'Jane Doe',
+  },
+  {
+    id: '3',
+    name: 'Jack Doe',
+  },
+  {
+    id: '4',
+    name: 'Jill Doe',
+  },
+  {
+    id: '1',
+    name: 'John Doe',
+  },
+  {
+    id: '2',
+    name: 'Jane Doe',
+  },
+  {
+    id: '3',
+    name: 'Jack Doe',
+  },
+  {
+    id: '4',
+    name: 'Jill Doe',
+  },
+  {
+    id: '1',
+    name: 'John Doe',
+  },
+  {
+    id: '2',
+    name: 'Jane Doe',
+  },
+  {
+    id: '3',
+    name: 'Jack Doe',
+  },
+  {
+    id: '4',
+    name: 'Jill Doe',
   },
 ];

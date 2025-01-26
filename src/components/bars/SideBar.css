@@ -1,9 +1,23 @@
+.sidebar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1%;
+  width: 15%;
+  position: fixed;
+  top: 10%;
+  left: 0;
+  z-index: 500;
+  background-color: #fff;
+}
+
 .menu-large {
-  font-size: 20px;
+  font-size: 1.5vw;
 }
 
 .menu-item-large {
   padding: 60px 60px;
+  font-size: 1.3vw;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

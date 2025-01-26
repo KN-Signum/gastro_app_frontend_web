@@ -2,6 +2,24 @@
   "home": {
     "title": "Welcome to home page."
   },
+  "login": {
+    "email": "Email",
+    "email_placeholder": "Please enter your email.",
+    "email_help": "Email must have '@' and '.'",
+    "email_not_empty": "Email cannot be empty.",
+    "password": "Password",
+    "password_placeholder": "Please enter your password.",
+    "password_help": "Password must contain at least 6 characters, capital letter, special sign.",
+    "password_not_empty": "Password cannot be empty.",
+    "login": "Login",
+    "reset": "Reset"
+  },
+  "notify": {
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info"
+  },
   "sidebar": {
     "dashboard": "Dashboard",
     "patients": "Patients",
@@ -26,11 +44,64 @@
       "subtitle": "patients in state of emergency"
     }
   },
+  "drug": {
+    "name": "Name",
+    "assign_drug": "Assign drug",
+    "dosage": "Dosage",
+    "additional_info": "Additional info",
+    "doses_taken": "Doses taken",
+    "doses_left": "Doses left",
+    "start_date": "Start date",
+    "end_date": "End date",
+    "submit": "Submit",
+    "submit_success": "Drug assigned successfully",
+    "submit_error": "Error while assigning drug",
+    "errors": {
+      "name_required": "Name is required",
+      "dosage_required": "Dosage is required",
+      "start_date_required": "Start date is required",
+      "end_date_required": "End date is required",
+      "doses_taken_positive": "Doses taken must be a positive number",
+      "doses_left_positive": "Doses left must be a positive number"
+    }
+  },
+  "patient": {
+    "add": "Add patient",
+    "assign": "Assign patient",
+    "back": "Back",
+    "submit": "Submit",
+    "errors": {
+      "name_required": "Name is required",
+      "email_required": "Email is required",
+      "phone_number_required": "Phone number is required",
+      "password_required": "Password is required",
+      "weight_required": "Weight is required",
+      "height_required": "Height is required",
+      "age_required": "Age is required"
+    }
+  },
   "patient-list": {
     "full_name": "Full name",
     "mayo_stance": "Mayo stance",
     "date_of_last_visit": "Date of last visit",
-    "drugs": "Drugs"
+    "drugs": "Drugs",
+    "assign": "Assign",
+    "dismiss": "Dismiss"
+  },
+  "full-patient-list": {
+    "number": "No.",
+    "full_name": "Full name",
+    "weigth": "Weigth [kg]",
+    "height": "Height [cm]",
+    "age": "Age",
+    "cdai_score": "CDAI score",
+    "email": "Email",
+    "phone_number": "Phone number",
+    "assign_drug": "Assign Drug",
+    "phone_number_not_empty": "Phone number cannot be empty",
+    "weigth_not_empty": "Weight cannot be empty",
+    "height_not_empty": "Height cannot be empty",
+    "age_not_empty": "Age cannot be empty"
   },
   "calendar": {
     "months": [

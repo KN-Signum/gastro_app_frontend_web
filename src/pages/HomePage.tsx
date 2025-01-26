@@ -12,9 +12,6 @@ export default function HomePage() {
   const { t } = useTranslation();
   return (
     <div>
-      <Logo />
-      <SideNavBar />
-      <NavBar />
       <h1>{t('home.title')}</h1>
       <InfoCard
         title="cards.patients.title"
@@ -38,7 +35,9 @@ export default function HomePage() {
         link="/state-of-emergency"
       />
       <PatientTable patients={mockPatients} />
-      <AppointmentCalendar appointments={mockAppointments} />
+      <div className="calendar-container">
+        <AppointmentCalendar appointments={mockAppointments} />
+      </div>
       <TimetableGrid />
     </div>
   );

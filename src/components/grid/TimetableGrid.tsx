@@ -6,8 +6,6 @@ export default function TimetableGrid() {
   const { t } = useTranslation();
   const rowStyl: React.CSSProperties = {
     minWidth: '1000px',
-    overflowX: 'auto',
-    whiteSpace: 'nowrap',
     backgroundColor: 'rgba(230, 230, 230, 0.67)',
     marginBottom: 10,
   };
@@ -107,8 +105,8 @@ export default function TimetableGrid() {
     </div>
   );
   return (
-    <div>
-      <Row gutter={1} justify="flex-start" style={rowStyl}>
+    <div style={{ transform: 'scale(1)', transformOrigin: 'top left' }}>
+      <Row gutter={10} justify="flex-start" style={rowStyl}>
         <Col span="2">
           <Box />
         </Col>
