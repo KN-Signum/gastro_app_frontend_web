@@ -1,7 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import SideNavBar from '../components/bars/SideBar';
-import NavBar from '../components/bars/NavBar';
-import Logo from '../components/Logo';
 import InfoCard from '../components/cards/InfoCard';
 import { mockAppointments, mockPatients } from '../mock_data';
 import PatientTable from '../components/tables/PatientTable';
@@ -35,9 +32,8 @@ export default function HomePage() {
         link="/state-of-emergency"
       />
       <PatientTable patients={mockPatients} />
-      <div className="calendar-container">
-        <AppointmentCalendar appointments={mockAppointments} />
-      </div>
+
+      <AppointmentCalendar appointments={mockAppointments} />
       <TimetableGrid />
     </div>
   );

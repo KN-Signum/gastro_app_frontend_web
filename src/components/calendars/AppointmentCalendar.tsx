@@ -19,7 +19,7 @@ export default function AppointmentCalendar({
   }));
   function filterData(dt: dataStructure[]) {
     return dt.map((item) => {
-      let color = 'red';
+      const color = 'red';
       item.label = <Badge color={color}>{item.label}</Badge>;
       return item;
     });
@@ -34,13 +34,11 @@ export default function AppointmentCalendar({
   }) as unknown as string[];
 
   return (
-    <div className="calendar">
-      <Calendar
-        data={filterData(data)}
-        monthLabel={monthLabels}
-        weekday={weekdayLabels}
-        todayLabel={t('calendar.today')}
-      />
-    </div>
+    <Calendar
+      data={filterData(data)}
+      monthLabel={monthLabels}
+      weekday={weekdayLabels}
+      todayLabel={t('calendar.today')}
+    />
   );
 }
