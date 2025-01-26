@@ -12,7 +12,9 @@
     "password_help": "Hasło musi zawierać co najmniej 6 znaków, wielką literę, znak specjalny.",
     "password_not_empty": "Hasło nie może być puste.",
     "login": "Zaloguj",
-    "reset": "Resetuj"
+    "reset": "Resetuj",
+    "success": "Zalogowano pomyślnie",
+    "failed": "Logowanie nieudane"
   },
   "notify": {
     "success": "Sukces",

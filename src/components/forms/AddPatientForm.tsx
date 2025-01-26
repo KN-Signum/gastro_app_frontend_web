@@ -2,6 +2,8 @@ import React from 'react';
 import { Form, Input, Row, Col, Button, Notify } from 'uiw';
 import './AddPatientForm.css';
 import { useTranslation } from 'react-i18next';
+import { GastroappClient } from '../../api/gastroapp-client';
+import { CreatePatientDto } from '../../dto/PatientDto';
 
 class ValidationError extends Error {
   filed: { [key: string]: string };
@@ -14,10 +16,12 @@ class ValidationError extends Error {
 
 export default function AddPatientForm() {
   const { t } = useTranslation();
+  const client = new GastroappClient();
+
   return (
     <div className="patient-from">
       <Form
-        onSubmit={({ initial, current }) => {
+        onSubmit={async ({ initial, current }) => {
           const errorObj: { [key: string]: string } = {};
           if (!current.name) {
             errorObj.name = t('drug.errors.name_required');
@@ -45,7 +49,36 @@ export default function AddPatientForm() {
           if (Object.keys(errorObj).length > 0) {
             throw new ValidationError(errorObj);
           }
-          console.log('-->>', initial, current);
+
+          const data: CreatePatientDto = {
+            name: current.name,
+            email: current.email,
+            phone_number: current.phone_number,
+            password: current.password,
+            weight: current.weight,
+            height: current.height,
+            age: current.age,
+          };
+
+          try {
+            const response = await client.createPatient(data);
+            if (response.status === 200 || response.status === 201) {
+              Notify.success({
+                title: t('notify.success'),
+                description: response.data,
+              });
+            } else {
+              Notify.error({
+                title: t('notify.error'),
+                description: response.data,
+              });
+            }
+          } catch (error) {
+            Notify.error({
+              title: t('notify.error'),
+              description: t('patient.creation_failed'),
+            });
+          }
         }}
         onSubmitError={(error) => {
           if (error.filed) {
@@ -73,7 +106,7 @@ export default function AddPatientForm() {
             labelStyle: { width: 60 },
             inline: true,
             label: t('full-patient-list.phone_number'),
-            children: <Input type="tel" maxLength={9} />,
+            children: <Input type="tel" maxLength={10} />,
           },
           password: {
             labelClassName: 'fieldLabel',

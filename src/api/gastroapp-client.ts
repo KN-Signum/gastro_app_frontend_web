@@ -3,7 +3,12 @@ import Cookies from 'universal-cookie';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { LoginRequestDto } from '../dto/AuthDto';
 import { GetDoctorDto } from '../dto/DoctorDto';
-import { CreatePatientDto, CreatePatientResponseDto } from '../dto/PatientDto';
+import {
+  CreatePatientDto,
+  CreatePatientResponseDto,
+  GetAllPatientsPatientDto,
+  GetPatientDto,
+} from '../dto/PatientDto';
 import { CreateDrugDto } from '../dto/DrugDto';
 
 export type ClientResponse<T> = {
@@ -37,6 +42,7 @@ export class GastroappClient {
       const response: AxiosResponse = await this.client.post('/login/', data);
 
       const decoded = jwtDecode<JwtPayload>(response.data.access_token);
+      console.log(decoded);
 
       if (decoded.exp) {
         this.cookies.set('access_token', response.data.access_token, {
@@ -46,7 +52,7 @@ export class GastroappClient {
       return {
         success: true,
         data: undefined,
-        status: response.status,
+        status: response.data.status,
       };
     } catch (error) {
       const axiosError = error as AxiosError<Error>;
@@ -63,16 +69,45 @@ export class GastroappClient {
     ClientResponse<GetDoctorDto[] | undefined>
   > {
     try {
-      const response: AxiosResponse<GetDoctorDto[]> = await this.client.get(
-        'api/get_all_doctors'
-      );
+      const response: AxiosResponse<{
+        status: number;
+        content: GetDoctorDto[];
+      }> = await this.client.get('api/get_all_doctors');
 
       console.log(response.data);
 
       return {
         success: true,
-        data: response.data,
-        status: response.status,
+        data: response.data.content,
+        status: response.data.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      console.log(error);
+
+      return {
+        success: false,
+        data: undefined,
+        status: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async getAllPatients(): Promise<
+    ClientResponse<GetAllPatientsPatientDto[] | undefined>
+  > {
+    try {
+      const response: AxiosResponse<{
+        status: number;
+        content: GetAllPatientsPatientDto[];
+      }> = await this.client.get('api/get_all_patients');
+
+      console.log(response.data);
+
+      return {
+        success: true,
+        data: response.data.content,
+        status: response.data.status,
       };
     } catch (error) {
       const axiosError = error as AxiosError<Error>;
@@ -90,21 +125,21 @@ export class GastroappClient {
     doctorId: string
   ): Promise<ClientResponse<GetDoctorDto | undefined>> {
     try {
-      const response: AxiosResponse<GetDoctorDto> = await this.client.get(
-        `api/get_doctor`,
-        {
-          params: {
-            id: doctorId,
-          },
-        }
-      );
+      const response: AxiosResponse<{
+        status: number;
+        content: GetDoctorDto;
+      }> = await this.client.get(`api/get_doctor`, {
+        params: {
+          id: doctorId,
+        },
+      });
 
       console.log(response.data);
 
       return {
         success: true,
-        data: response.data,
-        status: response.status,
+        data: response.data.content,
+        status: response.data.status,
       };
     } catch (error) {
       const axiosError = error as AxiosError<Error>;
@@ -120,16 +155,18 @@ export class GastroappClient {
 
   public async createPatient(
     data: CreatePatientDto
-  ): Promise<ClientResponse<CreatePatientResponseDto | undefined>> {
+  ): Promise<ClientResponse<string | undefined>> {
     try {
-      const response: AxiosResponse<CreatePatientResponseDto> =
-        await this.client.post('/api/create_patient', data);
+      const response: AxiosResponse<{
+        status: number;
+        content: string;
+      }> = await this.client.post('/api/create_patient', data);
 
       console.log(response.data);
       return {
         success: true,
-        data: response.data,
-        status: response.status,
+        data: response.data.content,
+        status: response.data.status,
       };
     } catch (error) {
       const axiosError = error as AxiosError<Error>;
@@ -143,18 +180,20 @@ export class GastroappClient {
 
   public async assignPatient(
     patient_id: string
-  ): Promise<ClientResponse<undefined | Error>> {
+  ): Promise<ClientResponse<undefined | string>> {
     try {
-      const response: AxiosResponse = await this.client.post(
-        '/api/assign_patient',
-        { patient_id: patient_id }
-      );
+      const response: AxiosResponse<{
+        status: number;
+        content: string;
+      }> = await this.client.post('/api/assign_patient', {
+        patient_id: patient_id,
+      });
 
       console.log(response.data);
       return {
         success: true,
-        data: response.data,
-        status: response.status,
+        data: response.data.content,
+        status: response.data.status,
       };
     } catch (error) {
       const axiosError = error as AxiosError<Error>;
@@ -168,23 +207,21 @@ export class GastroappClient {
 
   public async assignDrugToPatient(
     patient_id: string
-  ): Promise<ClientResponse<Error | undefined>> {
+  ): Promise<ClientResponse<string | undefined>> {
     try {
-      const response: AxiosResponse = await this.client.post(
-        `api/assign_drug_to_patient`,
-        {
-          params: {
-            id: patient_id,
-          },
-        }
-      );
-
-      console.log(response.data);
+      const response: AxiosResponse<{
+        status: number;
+        content: string;
+      }> = await this.client.post(`api/assign_drug_to_patient`, {
+        params: {
+          id: patient_id,
+        },
+      });
 
       return {
         success: true,
-        data: response.data,
-        status: response.status,
+        data: response.data.content,
+        status: response.data.status,
       };
     } catch (error) {
       const axiosError = error as AxiosError<Error>;

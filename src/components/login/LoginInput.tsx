@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Form, Input, Row, Col, Notify, Button, Icon } from 'uiw';
 import { useTranslation } from 'react-i18next';
+import { useApi } from '../../api/ApiProvider';
+import { LoginRequestDto } from '../../dto/AuthDto';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginInput() {
   const { t } = useTranslation();
@@ -9,11 +12,13 @@ export default function LoginInput() {
     username?: string;
     password?: string;
   }>({});
+  const apiClient = useApi();
+  const navigate = useNavigate();
 
   return (
     <div>
       <Form
-        onSubmit={({ initial, current }) => {
+        onSubmit={async ({ initial, current }) => {
           const errorObj: { username?: string; password?: string } = {};
           const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           const passwordRegex =
@@ -43,10 +48,32 @@ export default function LoginInput() {
           }
           setErrors({});
           console.log('-->>', initial, current);
-          Notify.success({
-            title: t('notify.success'),
-            description: t('login.password_help'),
-          });
+
+          try {
+            const loginData: LoginRequestDto = {
+              email: current.username,
+              password: current.password,
+            };
+            const response = await apiClient.login(loginData);
+
+            if (response.success) {
+              Notify.success({
+                title: t('notify.success'),
+                description: t('login.success'),
+              });
+              navigate('/home');
+            } else {
+              Notify.error({
+                title: t('notify.error'),
+                description: response.data?.message || t('login.failed'),
+              });
+            }
+          } catch (err) {
+            Notify.error({
+              title: t('notify.error'),
+              description: t('login.failed'),
+            });
+          }
         }}
         onSubmitError={(error) => {
           if (error.filed) {

@@ -12,7 +12,9 @@
     "password_help": "Password must contain at least 6 characters, capital letter, special sign.",
     "password_not_empty": "Password cannot be empty.",
     "login": "Login",
-    "reset": "Reset"
+    "reset": "Reset",
+    "success": "Logged in successfully",
+    "failed": "Login failed"
   },
   "notify": {
     "success": "Success",

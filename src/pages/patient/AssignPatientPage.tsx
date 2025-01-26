@@ -1,12 +1,26 @@
 import { Button, Icon } from 'uiw';
 import AssignPatientTable from '../../components/tables/AssignPatientTable';
-import { mockAllPatients } from '../../mock_data';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { GastroappClient } from '../../api/gastroapp-client';
+import { GetAllPatientsPatientDto } from '../../dto/PatientDto';
 
 export default function AssignPatientPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [patients, setPatients] = useState<GetAllPatientsPatientDto[]>([]);
+  const client = new GastroappClient();
+
+  useEffect(() => {
+    async function fetchPatients() {
+      const response = await client.getAllPatients();
+      if (response.success && response.data) {
+        setPatients(response.data);
+      }
+    }
+    fetchPatients();
+  }, []);
 
   return (
     <div>
@@ -24,7 +38,7 @@ export default function AssignPatientPage() {
         </Button>
       </div>
       <div className="assign-table-container">
-        <AssignPatientTable patients={mockAllPatients} />
+        <AssignPatientTable patients={patients} />
       </div>
     </div>
   );
