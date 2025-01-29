@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import Cookies from 'universal-cookie';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { LoginRequestDto } from '../dto/AuthDto';
+import { GetMeResponseDto, LoginRequestDto } from '../dto/AuthDto';
 import { GetDoctorDto } from '../dto/DoctorDto';
 import {
   CreatePatientDto,
@@ -33,6 +33,29 @@ export class GastroappClient {
       config.headers.Authorization = `Bearer ${token}`;
       return config;
     });
+  }
+
+  public async getMe(): Promise<ClientResponse<GetMeResponseDto | undefined>> {
+    try {
+      const response: AxiosResponse<{
+        status: number;
+        content: GetMeResponseDto;
+      }> = await this.client.get('/api/get_me');
+
+      return {
+        success: true,
+        data: response.data.content,
+        status: response.data.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+
+      return {
+        success: false,
+        data: undefined,
+        status: axiosError.response?.status || 0,
+      };
+    }
   }
 
   public async login(
@@ -206,7 +229,8 @@ export class GastroappClient {
   }
 
   public async assignDrugToPatient(
-    patient_id: string
+    patient_id: string,
+    data: CreateDrugDto
   ): Promise<ClientResponse<string | undefined>> {
     try {
       const response: AxiosResponse<{
@@ -216,6 +240,7 @@ export class GastroappClient {
         params: {
           id: patient_id,
         },
+        data,
       });
 
       return {

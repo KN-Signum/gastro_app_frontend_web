@@ -4,9 +4,26 @@ import { mockAppointments, mockPatients } from '../mock_data';
 import PatientTable from '../components/tables/PatientTable';
 import AppointmentCalendar from '../components/calendars/AppointmentCalendar';
 import TimetableGrid from '../components/grid/TimetableGrid';
+import { useEffect, useState } from 'react';
+import { GastroappClient } from '../api/gastroapp-client';
 
 export default function HomePage() {
   const { t } = useTranslation();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const client = new GastroappClient();
+    client.getMe().then((response) => {
+      if (response.success && response.data) {
+        setIsLoggedIn(true);
+      }
+    });
+  }, []);
+
+  if (!isLoggedIn) {
+    return null;
+  }
+
   return (
     <div>
       <h1>{t('home.title')}</h1>

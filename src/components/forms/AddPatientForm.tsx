@@ -62,7 +62,7 @@ export default function AddPatientForm() {
 
           try {
             const response = await client.createPatient(data);
-            if (response.status === 200 || response.status === 201) {
+            if (response.success) {
               Notify.success({
                 title: t('notify.success'),
                 description: response.data,

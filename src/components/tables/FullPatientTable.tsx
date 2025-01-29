@@ -100,7 +100,9 @@ export default function FullPatientTable({
       ),
       key: 'actions',
       width: 90,
-      render: (text: any, record: any) => <AssignDrugModal />,
+      render: (text: any, record: any) => (
+        <AssignDrugModal patientId={record.id} />
+      ),
     },
   ];
 

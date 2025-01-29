@@ -11,6 +11,8 @@ import {
   Col,
 } from 'uiw';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import { GastroappClient } from '../../api/gastroapp-client';
+import { CreateDrugDto } from '../../dto/DrugDto';
 
 class ValidationError extends Error {
   filed: { [key: string]: string };
@@ -26,13 +28,20 @@ interface DemoState {
   loading: boolean;
 }
 
-class AssignDrugModal extends React.Component<WithTranslation, DemoState> {
-  constructor(props: WithTranslation) {
+interface AssignDrugModalProps extends WithTranslation {
+  patientId: string;
+}
+
+class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
+  private client: GastroappClient;
+
+  constructor(props: AssignDrugModalProps) {
     super(props);
     this.state = {
       visible: false,
       loading: false,
     };
+    this.client = new GastroappClient();
   }
   onClick() {
     this.setState({ visible: !this.state.visible });
@@ -40,14 +49,14 @@ class AssignDrugModal extends React.Component<WithTranslation, DemoState> {
   onClosed() {
     this.setState({ visible: false });
   }
-  onSubmit({
+  async onSubmit({
     initial,
     current,
   }: {
     initial: any;
     current: { [key: string]: any };
   }) {
-    const { t } = this.props;
+    const { t, patientId } = this.props;
     const errorObj: { [key: string]: string } = {};
     if (!current.name) {
       errorObj.name = t('drug.errors.name_required');
@@ -71,14 +80,41 @@ class AssignDrugModal extends React.Component<WithTranslation, DemoState> {
       throw new ValidationError(errorObj);
     }
 
+    const drugData: CreateDrugDto = {
+      name: current.name,
+      dosage: current.dosage,
+      dateFrom: current.dateFrom,
+      dateTo: current.dateTo,
+      additionalInfo: current.additionalInfo,
+      doses_taken: current.doses_taken,
+      doses_left: current.doses_left,
+    };
+
     this.setState({ loading: true });
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-      Notify.success({
-        title: t('notify.success'),
-        description: t('drug.submit_success'),
+    try {
+      const response = await this.client.assignDrugToPatient(
+        patientId,
+        drugData
+      );
+      if (response.success) {
+        Notify.success({
+          title: t('notify.success'),
+          description: response.data,
+        });
+      } else {
+        Notify.error({
+          title: t('notify.error'),
+          description: response.data,
+        });
+      }
+    } catch (error) {
+      Notify.error({
+        title: t('notify.error'),
+        description: t('drug.submit_error'),
       });
-    }, 2000);
+    } finally {
+      this.setState({ loading: false, visible: false });
+    }
   }
   render() {
     const { t } = this.props;
