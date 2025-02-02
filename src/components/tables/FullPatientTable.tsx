@@ -4,22 +4,20 @@ import { Table, Button } from 'uiw';
 import AssignDrugModal from '../modal/AssignDrugModal';
 import './PatientTable.css';
 import { useEffect, useState } from 'react';
-import { GastroappClient } from '../../api/gastroapp-client';
 
-export default function FullPatientTable() {
-  const [patients, setPatients] = useState<GetFullPatientDto[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function FullPatientTable({
+  patients,
+}: {
+  patients: GetFullPatientDto[];
+}) {
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const client = new GastroappClient();
-    client.getMyPatients().then((response) => {
-      if (response.success && Array.isArray(response.data)) {
-        setPatients(response.data);
-      }
+    if (patients.length > 0) {
       setLoading(false);
-    });
-  }, []);
+    }
+  }, [patients]);
 
   const data = patients.map((patient, index) => ({
     key: patient.id,

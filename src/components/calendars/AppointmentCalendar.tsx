@@ -1,22 +1,16 @@
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
 import { GetAppointmentDto } from '../../dto/AppointmentDto';
 import { Badge, Calendar } from 'uiw';
-import { GastroappClient } from '../../api/gastroapp-client';
 import './AppointmentCalendar.css';
 
-export default function AppointmentCalendar() {
-  const { t } = useTranslation();
-  const [appointments, setAppointments] = useState<GetAppointmentDto[]>([]);
+interface AppointmentCalendarProps {
+  appointments: GetAppointmentDto[];
+}
 
-  useEffect(() => {
-    const client = new GastroappClient();
-    client.getAppointments().then((response) => {
-      if (response.success && response.data) {
-        setAppointments(response.data);
-      }
-    });
-  }, []);
+export default function AppointmentCalendar({
+  appointments,
+}: AppointmentCalendarProps) {
+  const { t } = useTranslation();
 
   interface dataStructure {
     date: string;
