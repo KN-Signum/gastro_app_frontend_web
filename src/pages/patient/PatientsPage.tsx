@@ -40,7 +40,7 @@ export default function PatientsPage() {
       </div>
       {isFormVisible && <AddPatientForm />}
       <div className="patients-table">
-        <FullPatientTable patients={mockFullPatients} />
+        <FullPatientTable />
       </div>
     </div>
   );

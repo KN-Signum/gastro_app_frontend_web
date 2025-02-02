@@ -11,19 +11,30 @@ import GlobalHomePage from './pages/global-home/GlobalHomePage';
 import CalendarPage from './pages/calendar/CalendarPage';
 import { useEffect, useState } from 'react';
 import { GastroappClient } from './api/gastroapp-client';
-import DashboardPage from './pages/DashboardPage';
+import DashboardPage from './pages/dashboard/DashboardPage';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const client = new GastroappClient();
-    client.getMe().then((response) => {
-      if (response.success && response.data) {
-        setIsLoggedIn(true);
-      }
-    });
+    client
+      .getMe()
+      .then((response) => {
+        if (response.data) {
+          setIsLoggedIn(true);
+        }
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <BrowserRouter>
@@ -31,9 +42,15 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={isLoggedIn ? <HomePage /> : <GlobalHomePage />}
+            element={
+              isLoggedIn ? (
+                <HomePage isLoggedIn={isLoggedIn} />
+              ) : (
+                <GlobalHomePage isLoggedIn={isLoggedIn} />
+              )
+            }
           >
-            <Route path="home" element={<HomePage />} />
+            <Route path="home" element={<HomePage isLoggedIn={isLoggedIn} />} />
             <Route path="patients" element={<PatientsPage />} />
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="assign_patient" element={<AssignPatientPage />} />

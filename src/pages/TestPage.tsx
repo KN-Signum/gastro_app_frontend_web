@@ -1,9 +1,9 @@
-import WholeBar from '../components/bars/Wholebar';
+import CreateAppointmentModal from '../components/modal/CreateAppointmentModal';
 
 export default function TestPage() {
   return (
     <div>
-      <WholeBar />
+      <CreateAppointmentModal />
     </div>
   );
 }

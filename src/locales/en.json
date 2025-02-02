@@ -88,7 +88,11 @@
     "date_of_last_visit": "Date of last visit",
     "drugs": "Drugs",
     "assign": "Assign",
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "assign_success": "Patient assigned successfully",
+    "assign_error": "Error while assigning patient",
+    "dismiss_success": "Patient dismissed successfully",
+    "dismiss_error": "Error while dismissing patient"
   },
   "full-patient-list": {
     "number": "No.",
@@ -125,5 +129,24 @@
   },
   "grid": {
     "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+  },
+  "appointment": {
+    "create": "Create appointment",
+    "date": "Date",
+    "name": "Name of appointment",
+    "time_start": "Start time",
+    "time_end": "End time",
+    "patient": "Patient",
+    "choose_patient": "Choose a patient",
+    "additional_info": "Additional info",
+    "submit": "Submit",
+    "errors": {
+      "date_required": "Date is required",
+      "time_required": "Time is required",
+      "name_required": "Name is required",
+      "patient_required": "Patient is required",
+      "time_end_required": "End time is required",
+      "time_start_required": "Start time is required"
+    }
   }
 }

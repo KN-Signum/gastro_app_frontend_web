@@ -6,52 +6,28 @@ import AppointmentCalendar from '../components/calendars/AppointmentCalendar';
 import TimetableGrid from '../components/grid/TimetableGrid';
 import { useEffect, useState } from 'react';
 import { GastroappClient } from '../api/gastroapp-client';
+import WholeNavBar from '../components/bars/Wholebar';
+import { Outlet } from 'react-router-dom';
 
-export default function HomePage() {
+interface HomePageProps {
+  isLoggedIn: boolean;
+}
+
+export default function HomePage({ isLoggedIn }: HomePageProps) {
   const { t } = useTranslation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const client = new GastroappClient();
-    client.getMe().then((response) => {
-      if (response.success && response.data) {
-        setIsLoggedIn(true);
-      }
-    });
-  }, []);
 
   if (!isLoggedIn) {
     return null;
   }
 
   return (
-    <div>
-      <h1>{t('home.title')}</h1>
-      <InfoCard
-        title="cards.patients.title"
-        icon="verification"
-        subtitle="cards.patients.subtitle"
-        number={10}
-        link="/patients"
-      />
-      <InfoCard
-        title="cards.surveys.title"
-        icon="document"
-        subtitle="cards.surveys.subtitle"
-        number={5}
-        link="/surveys"
-      />
-      <InfoCard
-        title="cards.state-of-emergency.title"
-        icon="warning-o"
-        subtitle="cards.state-of-emergency.subtitle"
-        number={1}
-        link="/state-of-emergency"
-      />
-      <PatientTable patients={mockPatients} />
-
-      <AppointmentCalendar appointments={mockAppointments} />
-      <TimetableGrid />
+    <div className="global-home-page">
+      <WholeNavBar isLoggedIn={isLoggedIn} />
+      <div className="content">
+        <div className="outlet-container">
+          <Outlet />
+        </div>
+      </div>
     </div>
   );
 }

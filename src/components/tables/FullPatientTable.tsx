@@ -3,13 +3,27 @@ import { GetFullPatientDto } from '../../dto/PatientDto';
 import { Table, Button } from 'uiw';
 import AssignDrugModal from '../modal/AssignDrugModal';
 import './PatientTable.css';
+import { useEffect, useState } from 'react';
+import { GastroappClient } from '../../api/gastroapp-client';
 
-export default function FullPatientTable({
-  patients,
-}: {
-  patients: GetFullPatientDto[];
-}) {
-  const data = patients.map((patient) => ({
+export default function FullPatientTable() {
+  const [patients, setPatients] = useState<GetFullPatientDto[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    const client = new GastroappClient();
+    client.getMyPatients().then((response) => {
+      if (response.success && Array.isArray(response.data)) {
+        setPatients(response.data);
+      }
+      setLoading(false);
+    });
+  }, []);
+
+  const data = patients.map((patient, index) => ({
+    key: patient.id,
+    number: index + 1,
     id: patient.id,
     name: patient.name,
     weight: patient.weight,
@@ -19,7 +33,7 @@ export default function FullPatientTable({
     email: patient.email,
     phone_number: patient.phone_number,
   }));
-  const { t } = useTranslation();
+
   const columns = [
     {
       ellipsis: true,
@@ -28,8 +42,13 @@ export default function FullPatientTable({
           {t('full-patient-list.number')}
         </span>
       ),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'number',
+      key: 'number',
+      render: (text: any) => (
+        <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+          {text}
+        </div>
+      ),
     },
     {
       title: (
@@ -39,6 +58,11 @@ export default function FullPatientTable({
       ),
       dataIndex: 'name',
       key: 'name',
+      render: (text: any) => (
+        <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+          {text}
+        </div>
+      ),
     },
     {
       title: (
@@ -48,6 +72,11 @@ export default function FullPatientTable({
       ),
       dataIndex: 'weight',
       key: 'weight',
+      render: (text: any) => (
+        <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+          {text}
+        </div>
+      ),
     },
     {
       title: (
@@ -57,6 +86,11 @@ export default function FullPatientTable({
       ),
       dataIndex: 'height',
       key: 'height',
+      render: (text: any) => (
+        <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+          {text}
+        </div>
+      ),
     },
     {
       title: (
@@ -64,6 +98,11 @@ export default function FullPatientTable({
       ),
       dataIndex: 'age',
       key: 'age',
+      render: (text: any) => (
+        <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+          {text}
+        </div>
+      ),
     },
     {
       title: (
@@ -73,6 +112,11 @@ export default function FullPatientTable({
       ),
       dataIndex: 'cdai_score',
       key: 'cdai_score',
+      render: (text: any) => (
+        <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+          {text}
+        </div>
+      ),
     },
     {
       title: (
@@ -82,6 +126,11 @@ export default function FullPatientTable({
       ),
       dataIndex: 'email',
       key: 'email',
+      render: (text: any) => (
+        <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+          {text}
+        </div>
+      ),
     },
     {
       title: (
@@ -91,6 +140,11 @@ export default function FullPatientTable({
       ),
       dataIndex: 'phone_number',
       key: 'phone_number',
+      render: (text: any) => (
+        <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
+          {text}
+        </div>
+      ),
     },
     {
       title: (
@@ -100,15 +154,20 @@ export default function FullPatientTable({
       ),
       key: 'actions',
       width: 90,
-      render: (text: any, record: any) => (
-        <AssignDrugModal patientId={record.id} />
-      ),
+      render: (text: any, record: any) => {
+        console.log('FullPatientTable record:', record);
+        return <AssignDrugModal patientId={record.id} />;
+      },
     },
   ];
 
   return (
     <div className="full-table">
-      <Table bordered columns={columns} data={data} />
+      {loading ? (
+        <div>{t('loading')}</div>
+      ) : (
+        <Table bordered columns={columns} data={data} />
+      )}
     </div>
   );
 }

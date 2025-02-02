@@ -7,9 +7,11 @@ import {
   CreatePatientDto,
   CreatePatientResponseDto,
   GetAllPatientsPatientDto,
+  GetFullPatientDto,
   GetPatientDto,
 } from '../dto/PatientDto';
 import { CreateDrugDto } from '../dto/DrugDto';
+import { CreateAppointmentDto, GetAppointmentDto } from '../dto/AppointmentDto';
 
 export type ClientResponse<T> = {
   success: boolean;
@@ -43,7 +45,7 @@ export class GastroappClient {
       }> = await this.client.get('/api/get_me');
 
       return {
-        success: true,
+        success: response.data.status === 201 || response.data.status === 200,
         data: response.data.content,
         status: response.data.status,
       };
@@ -124,6 +126,34 @@ export class GastroappClient {
         status: number;
         content: GetAllPatientsPatientDto[];
       }> = await this.client.get('api/get_all_patients');
+
+      console.log(response.data);
+
+      return {
+        success: true,
+        data: response.data.content,
+        status: response.data.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      console.log(error);
+
+      return {
+        success: false,
+        data: undefined,
+        status: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async getMyPatients(): Promise<
+    ClientResponse<GetFullPatientDto[] | undefined>
+  > {
+    try {
+      const response: AxiosResponse<{
+        status: number;
+        content: GetFullPatientDto[];
+      }> = await this.client.get('api/get_my_patients');
 
       console.log(response.data);
 
@@ -236,12 +266,68 @@ export class GastroappClient {
       const response: AxiosResponse<{
         status: number;
         content: string;
-      }> = await this.client.post(`api/assign_drug_to_patient`, {
+      }> = await this.client.post(`api/assign_drug_to_patient`, data, {
         params: {
           id: patient_id,
         },
-        data,
       });
+
+      return {
+        success: true,
+        data: response.data.content,
+        status: response.data.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      console.log(error);
+
+      return {
+        success: false,
+        data: undefined,
+        status: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async createAppointment(
+    patient_id: string,
+    data: CreateAppointmentDto
+  ): Promise<ClientResponse<string | undefined>> {
+    try {
+      const response: AxiosResponse<{
+        status: number;
+        content: string;
+      }> = await this.client.post(`api/assign_visit`, data, {
+        params: {
+          id: patient_id,
+        },
+      });
+
+      return {
+        success: true,
+        data: response.data.content,
+        status: response.data.status,
+      };
+    } catch (error) {
+      const axiosError = error as AxiosError<Error>;
+      console.log(error);
+
+      return {
+        success: false,
+        data: undefined,
+        status: axiosError.response?.status || 0,
+      };
+    }
+  }
+
+  public async getAppointments(): Promise<
+    ClientResponse<GetAppointmentDto[] | undefined>
+  > {
+    try {
+      const response: AxiosResponse<{
+        status: number;
+        content: GetAppointmentDto[];
+      }> = await this.client.get(`api/view_user_visits`);
 
       return {
         success: true,

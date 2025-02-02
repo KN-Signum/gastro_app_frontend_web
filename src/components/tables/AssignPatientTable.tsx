@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { GetAllPatientsPatientDto } from '../../dto/PatientDto';
-import { Button, Table } from 'uiw';
+import { Button, Table, Notify } from 'uiw';
 import './PatientTable.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { GastroappClient } from '../../api/gastroapp-client';
 
 export default function AssignPatientTable({
   patients,
@@ -12,17 +13,59 @@ export default function AssignPatientTable({
   const [activeButton, setActiveButton] = useState<{ [key: string]: string }>(
     {}
   );
+  const [myPatients, setMyPatients] = useState<string[]>([]);
   const data = patients.map((patient) => ({
     id: patient.id,
     full_name: patient.name,
   }));
   const { t } = useTranslation();
-  const handleButtonClick = (id: string, action: string) => {
-    setActiveButton((prevState) => ({
-      ...prevState,
-      [id]: action,
-    }));
+
+  useEffect(() => {
+    const fetchMyPatients = async () => {
+      const client = new GastroappClient();
+      const response = await client.getMyPatients();
+      if (response.success && response.data) {
+        setMyPatients(response.data.map((patient) => patient.id));
+      }
+    };
+    fetchMyPatients();
+  }, []);
+
+  const handleButtonClick = async (id: string, action: string) => {
+    const client = new GastroappClient();
+    if (action === 'assign') {
+      const response = await client.assignPatient(id);
+      if (response.success) {
+        setActiveButton((prevState) => ({
+          ...prevState,
+          [id]: 'assign',
+        }));
+        setMyPatients((prevState) => [...prevState, id]);
+        Notify.success({
+          title: t('notify.success'),
+          description: t('patient-list.assign_success'),
+        });
+      } else {
+        Notify.error({
+          title: t('notify.error'),
+          description: t('patient-list.assign_error'),
+        });
+      }
+    } else if (action === 'dismiss') {
+      setActiveButton((prevState) => ({
+        ...prevState,
+        [id]: 'dismiss',
+      }));
+      setMyPatients((prevState) =>
+        prevState.filter((patientId) => patientId !== id)
+      );
+      Notify.success({
+        title: t('notify.success'),
+        description: t('patient-list.dismiss_success'),
+      });
+    }
   };
+
   const columns = [
     {
       ellipsis: true,
@@ -49,7 +92,10 @@ export default function AssignPatientTable({
           <Button
             type="success"
             size="small"
-            disabled={activeButton[rowData.id] === 'assign'}
+            disabled={
+              myPatients.includes(rowData.id) ||
+              activeButton[rowData.id] === 'assign'
+            }
             onClick={() => handleButtonClick(rowData.id, 'assign')}
           >
             {t('patient-list.assign')}

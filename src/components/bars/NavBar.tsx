@@ -2,21 +2,13 @@ import { Menu, MenuItem } from '@uiw/react-menu';
 import { useTranslation } from 'react-i18next';
 import './NavBar.css';
 import Logo from '../Logo';
-import { useEffect, useState } from 'react';
-import { GastroappClient } from '../../api/gastroapp-client';
 
-export default function NavBar() {
+interface NavBarProps {
+  isLoggedIn: boolean;
+}
+
+export default function NavBar({ isLoggedIn }: NavBarProps) {
   const { t } = useTranslation();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const client = new GastroappClient();
-    client.getMe().then((response) => {
-      if (response.success && response.data) {
-        setIsLoggedIn(true);
-      }
-    });
-  }, []);
 
   return (
     <div className="navbar">

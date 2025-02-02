@@ -79,7 +79,11 @@
     "date_of_last_visit": "Data ostatniej wizyty",
     "drugs": "Leki",
     "assign": "przypisz",
-    "dismiss": "wypisz"
+    "dismiss": "wypisz",
+    "assign_success": "Pacjent przypisany pomyślnie",
+    "assign_error": "Błąd podczas przypisywania pacjenta",
+    "dismiss_success": "Pacjent wypisany pomyślnie",
+    "dismiss_error": "Błąd podczas wypisywania pacjenta"
   },
   "full-patient-list": {
     "number": "Nr",
@@ -116,5 +120,27 @@
   },
   "grid": {
     "weekdays": ["Pon", "Wt", "Śr", "Czw", "Pt"]
+  },
+  "appointment": {
+    "title": "Wizyta",
+    "create": "Utwórz wizytę",
+    "date": "Data wizyty",
+    "name": "Nazwa wizyty",
+    "time_start": "Godzina rozpoczęcia",
+    "time_end": "Godzina zakończenia",
+    "patient": "Pacjent",
+    "choose_patient": "Proszę wybrać pacjenta",
+    "additional_info": "Dodatkowe informacje",
+    "submit": "Zatwierdź",
+    "submit_success": "Wizyta zapisana pomyślnie",
+    "submit_error": "Błąd podczas zapisywania wizyty",
+    "errors": {
+      "date_required": "Data jest wymagana",
+      "time_required": "Godzina jest wymagana",
+      "name_required": "Nazwa jest wymagana",
+      "patient_required": "Pacjent jest wymagany",
+      "time_end_required": "Czas zakończenia jest wymagany",
+      "time_start_required": "Czas rozpoczęcia jest wymagany"
+    }
   }
 }

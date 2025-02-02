@@ -9,10 +9,11 @@ import {
   Notify,
   Row,
   Col,
+  Select,
 } from 'uiw';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { GastroappClient } from '../../api/gastroapp-client';
-import { CreateDrugDto } from '../../dto/DrugDto';
+import { CreateAppointmentDto } from '../../dto/AppointmentDto';
 
 class ValidationError extends Error {
   filed: { [key: string]: string };
@@ -27,27 +28,43 @@ interface DemoState {
   visible: boolean;
   loading: boolean;
   patientId: string | null;
+  patients: { label: string; value: string }[];
 }
 
-interface AssignDrugModalProps extends WithTranslation {
-  patientId: string;
-}
-
-class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
+class CreateAppointementModal extends React.Component<
+  WithTranslation,
+  DemoState
+> {
   private client: GastroappClient;
 
-  constructor(props: AssignDrugModalProps) {
+  constructor(props: WithTranslation) {
     super(props);
     this.state = {
       visible: false,
       loading: false,
       patientId: null,
+      patients: [],
     };
     this.client = new GastroappClient();
   }
 
-  onClick(patientId: string) {
-    this.setState({ visible: true, patientId });
+  async componentDidMount() {
+    try {
+      const response = await this.client.getMyPatients();
+      const patients = response.data
+        ? response.data.map((patient: any) => ({
+            label: patient.name,
+            value: patient.id,
+          }))
+        : [];
+      this.setState({ patients });
+    } catch (error) {
+      console.error('Error fetching patients:', error);
+    }
+  }
+
+  onClick() {
+    this.setState({ visible: true });
   }
 
   onClosed() {
@@ -63,45 +80,40 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
   }) {
     const { t } = this.props;
     const { patientId } = this.state;
-    console.log('AssignDrugModal patientId:', patientId);
+    console.log('CreateAppointementModal patientId:', patientId);
     const errorObj: { [key: string]: string } = {};
     if (!current.name) {
-      errorObj.name = t('drug.errors.name_required');
+      errorObj.name = t('appointment.errors.name_required');
     }
-    if (!current.dosage) {
-      errorObj.dosage = t('drug.errors.dosage_required');
+    if (!current.date) {
+      errorObj.date = t('appointment.errors.date_required');
     }
-    if (!current.dateFrom) {
-      errorObj.dateFrom = t('drug.errors.start_date_required');
+    if (!current.time_start) {
+      errorObj.time_start = t('appointment.errors.time_start_required');
     }
-    if (!current.dateTo) {
-      errorObj.dateTo = t('drug.errors.end_date_required');
+    if (!current.time_end) {
+      errorObj.time_end = t('appointment.errors.time_end_required');
     }
-    if (current.doses_taken === undefined || current.doses_taken < 0) {
-      errorObj.doses_taken = t('drug.errors.doses_taken_positive');
-    }
-    if (current.doses_left === undefined || current.doses_left < 0) {
-      errorObj.doses_left = t('drug.errors.doses_left_positive');
+    if (!patientId) {
+      errorObj.patient = t('appointment.errors.patient_required');
     }
     if (Object.keys(errorObj).length > 0) {
       throw new ValidationError(errorObj);
     }
 
-    const drugData: CreateDrugDto = {
+    const appointmentData: CreateAppointmentDto = {
       name: current.name,
-      dosage: current.dosage,
-      dateFrom: current.dateFrom,
-      dateTo: current.dateTo,
-      additionalInfo: current.additionalInfo,
-      doses_taken: Number(current.doses_taken),
-      doses_left: Number(current.doses_left),
+      date: current.date,
+      time_start: `${current.date}T${current.time_start}:00`,
+      time_end: `${current.date}T${current.time_end}:00`,
+      additional_info: current.additional_info,
     };
 
     this.setState({ loading: true });
     try {
-      const response = await this.client.assignDrugToPatient(
+      const response = await this.client.createAppointment(
         patientId!,
-        drugData
+        appointmentData
       );
       if (response.status === 200 || response.status === 201) {
         Notify.success({
@@ -117,19 +129,20 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
     } catch (error) {
       Notify.error({
         title: t('notify.error'),
-        description: t('drug.submit_error'),
+        description: t('appointment.submit_error'),
       });
     } finally {
       this.setState({ loading: false, visible: false });
     }
   }
+
   render() {
     const { t } = this.props;
     return (
       <div>
         <Modal
           key={this.state.patientId}
-          title={t('drug.assign_drug')}
+          title={t('appointment.create')}
           width={900}
           isOpen={this.state.visible}
           onClosed={this.onClosed.bind(this)}
@@ -146,40 +159,52 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
               return null;
             }}
             fields={{
+              patient: {
+                initialValue: this.state.patientId || '',
+                label: t('appointment.patient'),
+                children: (
+                  <Select
+                    onChange={(event) =>
+                      this.setState({ patientId: event.target.value })
+                    }
+                  >
+                    <Select.Option value="">
+                      {t('appointment.choose_patient')}
+                    </Select.Option>
+                    {this.state.patients.map((patient) => (
+                      <Select.Option key={patient.value} value={patient.value}>
+                        {patient.label}
+                      </Select.Option>
+                    ))}
+                  </Select>
+                ),
+              },
               name: {
                 initialValue: '',
-                label: t('drug.name'),
+                label: t('appointment.name'),
                 children: <Input type="text" />,
               },
-              dosage: {
+              date: {
                 initialValue: '',
-                label: t('drug.dosage'),
-                children: <Input type="text" />,
-              },
-              dateFrom: {
-                initialValue: '',
-                label: t('drug.start_date'),
+                label: t('appointment.date'),
                 children: <Input type="date" />,
               },
-              dateTo: {
+              time_start: {
                 initialValue: '',
-                label: t('drug.end_date'),
-                children: <Input type="date" />,
+                label: t('appointment.time_start'),
+                children: <Input type="time" />,
               },
-              additionalInfo: {
+              time_end: {
                 initialValue: '',
-                label: t('drug.additional_info'),
-                children: <Textarea placeholder={t('drug.additional_info')} />,
+                label: t('appointment.time_end'),
+                children: <Input type="time" />,
               },
-              doses_taken: {
-                initialValue: 0,
-                label: t('drug.doses_taken'),
-                children: <Input type="number" />,
-              },
-              doses_left: {
-                initialValue: 0,
-                label: t('drug.doses_left'),
-                children: <Input type="number" />,
+              additional_info: {
+                initialValue: '',
+                label: t('appointment.additional_info'),
+                children: (
+                  <Textarea placeholder={t('appointment.additional_info')} />
+                ),
               },
             }}
           >
@@ -188,19 +213,18 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
               return (
                 <div>
                   <Row gutter={10}>
+                    <Col>{fields?.patient}</Col>
+                  </Row>
+                  <Row gutter={10}>
                     <Col>{fields?.name}</Col>
-                    <Col>{fields?.dosage}</Col>
                   </Row>
                   <Row gutter={10}>
-                    <Col>{fields?.dateFrom}</Col>
-                    <Col>{fields?.dateTo}</Col>
+                    <Col>{fields?.date}</Col>
+                    <Col>{fields?.time_start}</Col>
+                    <Col>{fields?.time_end}</Col>
                   </Row>
                   <Row gutter={10}>
-                    <Col>{fields?.additionalInfo}</Col>
-                  </Row>
-                  <Row gutter={10}>
-                    <Col>{fields?.doses_taken}</Col>
-                    <Col>{fields?.doses_left}</Col>
+                    <Col>{fields?.additional_info}</Col>
                   </Row>
                   <Row gutter={10} justify="flex-end">
                     <Col fixed>
@@ -210,7 +234,7 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
                         type="dark"
                         htmlType="submit"
                       >
-                        {t('drug.submit')}
+                        {t('appointment.submit')}
                       </Button>
                     </Col>
                   </Row>
@@ -220,8 +244,8 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
           </Form>
         </Modal>
         <ButtonGroup>
-          <Button onClick={() => this.onClick(this.props.patientId)}>
-            {t('drug.assign_drug')}
+          <Button onClick={() => this.onClick()}>
+            {t('appointment.create')}
           </Button>
         </ButtonGroup>
       </div>
@@ -229,4 +253,4 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
   }
 }
 
-export default withTranslation()(AssignDrugModal);
+export default withTranslation()(CreateAppointementModal);
