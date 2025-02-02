@@ -26,7 +26,6 @@ class ValidationError extends Error {
 interface DemoState {
   visible: boolean;
   loading: boolean;
-  patientId: string | null;
 }
 
 interface AssignDrugModalProps extends WithTranslation {
@@ -41,17 +40,12 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
     this.state = {
       visible: false,
       loading: false,
-      patientId: null,
     };
     this.client = new GastroappClient();
   }
 
-  onClick(patientId: string) {
-    this.setState({ visible: true, patientId });
-  }
-
   onClosed() {
-    this.setState({ visible: false, patientId: null });
+    this.setState({ visible: false });
   }
 
   async onSubmit({
@@ -61,8 +55,7 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
     initial: any;
     current: { [key: string]: any };
   }) {
-    const { t } = this.props;
-    const { patientId } = this.state;
+    const { t, patientId } = this.props;
     console.log('AssignDrugModal patientId:', patientId);
     const errorObj: { [key: string]: string } = {};
     if (!current.name) {
@@ -100,7 +93,7 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
     this.setState({ loading: true });
     try {
       const response = await this.client.assignDrugToPatient(
-        patientId!,
+        patientId,
         drugData
       );
       if (response.status === 200 || response.status === 201) {
@@ -123,12 +116,13 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
       this.setState({ loading: false, visible: false });
     }
   }
+
   render() {
     const { t } = this.props;
     return (
       <div>
         <Modal
-          key={this.state.patientId}
+          key={this.props.patientId}
           title={t('drug.assign_drug')}
           width={900}
           isOpen={this.state.visible}
@@ -220,7 +214,7 @@ class AssignDrugModal extends React.Component<AssignDrugModalProps, DemoState> {
           </Form>
         </Modal>
         <ButtonGroup>
-          <Button onClick={() => this.onClick(this.props.patientId)}>
+          <Button onClick={() => this.setState({ visible: true })}>
             {t('drug.assign_drug')}
           </Button>
         </ButtonGroup>

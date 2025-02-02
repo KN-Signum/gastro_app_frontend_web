@@ -1,36 +1,48 @@
 import { useTranslation } from 'react-i18next';
 import { GetFullPatientDto } from '../../dto/PatientDto';
 import { Table, Button } from 'uiw';
-import AssignDrugModal from '../modal/AssignDrugModal';
 import './PatientTable.css';
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
+import { GastroappClient } from '../../api/gastroapp-client';
 
-export default function FullPatientTable({
-  patients,
-}: {
-  patients: GetFullPatientDto[];
-}) {
+const AssignDrugModal = lazy(() => import('../modal/AssignDrugModal'));
+
+export default function FullPatientTable() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
+  const [patients, setPatients] = useState<GetFullPatientDto[]>([]);
 
   useEffect(() => {
-    if (patients.length > 0) {
-      setLoading(false);
-    }
-  }, [patients]);
+    const client = new GastroappClient();
+    const controller = new AbortController();
+    const signal = controller.signal;
 
-  const data = patients.map((patient, index) => ({
-    key: patient.id,
-    number: index + 1,
-    id: patient.id,
-    name: patient.name,
-    weight: patient.weight,
-    height: patient.height,
-    age: patient.age,
-    cdai_score: patient.cdai_score,
-    email: patient.email,
-    phone_number: patient.phone_number,
-  }));
+    client.getMyPatients({ signal }).then((response) => {
+      if (response.success && Array.isArray(response.data)) {
+        setPatients(response.data);
+        setLoading(false);
+      }
+    });
+
+    return () => {
+      controller.abort();
+    };
+  }, []);
+
+  const data = useMemo(() => {
+    return patients.map((patient, index) => ({
+      key: patient.id,
+      number: index + 1,
+      id: patient.id,
+      name: patient.name,
+      weight: patient.weight,
+      height: patient.height,
+      age: patient.age,
+      cdai_score: patient.cdai_score,
+      email: patient.email,
+      phone_number: patient.phone_number,
+    }));
+  }, [patients]);
 
   const columns = [
     {
@@ -153,8 +165,12 @@ export default function FullPatientTable({
       key: 'actions',
       width: 90,
       render: (text: any, record: any) => {
-        console.log('FullPatientTable record:', record);
-        return <AssignDrugModal patientId={record.id} />;
+        console.log('Record:', record); // Debugging line
+        return (
+          <Suspense fallback={<div>Loading modal...</div>}>
+            <AssignDrugModal patientId={record.id} />
+          </Suspense>
+        );
       },
     },
   ];

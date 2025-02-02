@@ -146,9 +146,9 @@ export class GastroappClient {
     }
   }
 
-  public async getMyPatients(): Promise<
-    ClientResponse<GetFullPatientDto[] | undefined>
-  > {
+  public async getMyPatients(p0: {
+    signal: AbortSignal;
+  }): Promise<ClientResponse<GetFullPatientDto[] | undefined>> {
     try {
       const response: AxiosResponse<{
         status: number;
@@ -320,9 +320,9 @@ export class GastroappClient {
     }
   }
 
-  public async getAppointments(): Promise<
-    ClientResponse<GetAppointmentDto[] | undefined>
-  > {
+  public async getAppointments(p0: {
+    signal: AbortSignal;
+  }): Promise<ClientResponse<GetAppointmentDto[] | undefined>> {
     try {
       const response: AxiosResponse<{
         status: number;

@@ -1,29 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import AddPatientButton from '../../components/buttons/add_patient_button/AddPatientButton';
 import AddPatientForm from '../../components/forms/AddPatientForm';
 import FullPatientTable from '../../components/tables/FullPatientTable';
-import { mockFullPatients } from '../../mock_data';
 import './PatientsPage.css';
 import { Button } from 'uiw';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { GastroappClient } from '../../api/gastroapp-client';
-import { GetFullPatientDto } from '../../dto/PatientDto';
 
 export default function PatientsPage() {
   const { t } = useTranslation();
   const [isFormVisible, setIsFormVisible] = useState(false);
-  const [patients, setPatients] = useState<GetFullPatientDto[]>([]);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const client = new GastroappClient();
-    client.getMyPatients().then((response) => {
-      if (response.success && Array.isArray(response.data)) {
-        setPatients(response.data);
-      }
-    });
-  }, []);
 
   const handleButtonClick = () => {
     setIsFormVisible(!isFormVisible);
@@ -52,7 +39,7 @@ export default function PatientsPage() {
       </div>
       {isFormVisible && <AddPatientForm />}
       <div className="patients-table">
-        <FullPatientTable patients={patients} />
+        <FullPatientTable />
       </div>
     </div>
   );

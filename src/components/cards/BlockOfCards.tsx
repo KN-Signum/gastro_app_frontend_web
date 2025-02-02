@@ -26,14 +26,14 @@ export default function BlockOfInfoCards({
         icon="document"
         subtitle="cards.surveys.subtitle"
         number={surveysCount}
-        link="/surveys"
+        link="/patients"
       />
       <InfoCard
         title="cards.state-of-emergency.title"
         icon="warning-o"
         subtitle="cards.state-of-emergency.subtitle"
         number={emergenciesCount}
-        link="/state-of-emergency"
+        link="/patients"
       />
     </div>
   );

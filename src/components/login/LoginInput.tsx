@@ -90,6 +90,7 @@ export default function LoginInput() {
                 preIcon="user"
                 id="username-inline"
                 placeholder={t('login.email_placeholder')}
+                type="email"
               />
             ),
           },
