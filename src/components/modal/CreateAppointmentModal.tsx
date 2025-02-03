@@ -50,7 +50,10 @@ class CreateAppointementModal extends React.Component<
 
   async componentDidMount() {
     try {
-      const response = await this.client.getMyPatients();
+      const controller = new AbortController();
+      const response = await this.client.getMyPatients({
+        signal: controller.signal,
+      });
       const patients = response.data
         ? response.data.map((patient: any) => ({
             label: patient.name,
@@ -244,7 +247,7 @@ class CreateAppointementModal extends React.Component<
           </Form>
         </Modal>
         <ButtonGroup>
-          <Button onClick={() => this.onClick()}>
+          <Button size="large" onClick={() => this.onClick()}>
             {t('appointment.create')}
           </Button>
         </ButtonGroup>

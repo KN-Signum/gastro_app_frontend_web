@@ -1,6 +1,7 @@
 {
   "home": {
-    "title": "Witamy na stronie głównej."
+    "title": "Witamy na stronie głównej.",
+    "subtitle": "Proszę się zalogować, aby wykonać akcje."
   },
   "login": {
     "email": "Email",
@@ -30,7 +31,10 @@
     "settings": "Ustawienia"
   },
   "navbar": {
-    "welcome": "Witaj doktor"
+    "welcome": "Witaj doktor",
+    "language": "Język",
+    "english": "Angielski",
+    "polish": "Polski"
   },
   "cards": {
     "surveys": {

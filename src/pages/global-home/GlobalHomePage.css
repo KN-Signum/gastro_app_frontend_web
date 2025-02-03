@@ -7,9 +7,11 @@
 .global-home-page .content {
   flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   padding: 20px;
   margin-left: 15%;
+  margin-top: 10%;
 }
 
 .global-home-page .side-nav-bar {
@@ -21,6 +23,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 5%;
+  padding-top: 1%;
   width: 100%;
 }

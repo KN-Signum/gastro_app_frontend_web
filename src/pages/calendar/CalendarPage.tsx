@@ -8,7 +8,9 @@ import './CalendarPage.css';
 export default function CalendarPage() {
   return (
     <div className="calendar-page">
-      <CreateAppointmentModal />
+      <div className="calendar-modal">
+        <CreateAppointmentModal />
+      </div>
       <div style={{ width: '100%' }}>
         <AppointmentCalendar />
       </div>

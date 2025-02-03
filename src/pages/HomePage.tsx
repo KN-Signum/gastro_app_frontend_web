@@ -1,13 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import InfoCard from '../components/cards/InfoCard';
-import { mockAppointments, mockPatients } from '../mock_data';
-import PatientTable from '../components/tables/PatientTable';
-import AppointmentCalendar from '../components/calendars/AppointmentCalendar';
-import TimetableGrid from '../components/grid/TimetableGrid';
-import { useEffect, useState } from 'react';
-import { GastroappClient } from '../api/gastroapp-client';
 import WholeNavBar from '../components/bars/Wholebar';
 import { Outlet } from 'react-router-dom';
+import './global-home/GlobalHomePage.css';
 
 interface HomePageProps {
   isLoggedIn: boolean;

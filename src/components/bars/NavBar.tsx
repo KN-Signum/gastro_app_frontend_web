@@ -2,6 +2,7 @@ import { Menu, MenuItem } from '@uiw/react-menu';
 import { useTranslation } from 'react-i18next';
 import './NavBar.css';
 import Logo from '../Logo';
+import i18n from '../../i18n';
 
 interface NavBarProps {
   isLoggedIn: boolean;
@@ -9,6 +10,10 @@ interface NavBarProps {
 
 export default function NavBar({ isLoggedIn }: NavBarProps) {
   const { t } = useTranslation();
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
 
   return (
     <div className="navbar">
@@ -30,6 +35,24 @@ export default function NavBar({ isLoggedIn }: NavBarProps) {
         ) : (
           <MenuItem className="navbar_item" icon="user" href="/login" />
         )}
+        <MenuItem
+          key="en"
+          text={t('navbar.english')}
+          onClick={() => changeLanguage('en')}
+        />
+        <MenuItem
+          key="pl"
+          text={t('navbar.polish')}
+          onClick={() => changeLanguage('pl')}
+        />
+        <MenuItem className="navbar_item">
+          <button onClick={() => changeLanguage('en')}>
+            <img src="../../images/english.png" alt="English" />
+          </button>
+          <button onClick={() => changeLanguage('pl')}>
+            <img src="../../images/polish.jpg" alt="Polish" />
+          </button>
+        </MenuItem>
       </Menu>
     </div>
   );

@@ -1,6 +1,7 @@
 {
   "home": {
-    "title": "Welcome to home page."
+    "title": "Welcome to home page.",
+    "subtitle": "Please log in to perform actions."
   },
   "login": {
     "email": "Email",
@@ -30,7 +31,10 @@
     "settings": "Settings"
   },
   "navbar": {
-    "welcome": "Welcome dr"
+    "welcome": "Welcome dr",
+    "language": "Language",
+    "english": "English",
+    "polish": "Polish"
   },
   "cards": {
     "surveys": {
