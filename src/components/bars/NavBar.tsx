@@ -18,41 +18,28 @@ export default function NavBar({ isLoggedIn }: NavBarProps) {
   return (
     <div className="navbar">
       <Logo className="logo" />
-      <Menu
-        bordered
-        className="menu"
-        style={{ flexDirection: 'row', justifyContent: 'flex-start' }}
-      >
+      <Menu bordered className="menu">
         {isLoggedIn ? (
           <>
-            <MenuItem
-              className="navbar_item_first-child"
-              text={t('navbar.welcome')}
-            />
-            <MenuItem className="navbar_item" icon="setting-o" />
-            <MenuItem className="navbar_item" icon="user" />
+            <MenuItem className="menu_item" text={t('navbar.welcome')} />
+            <MenuItem className="menu_item" icon="setting-o" />
+            <MenuItem className="menu_item" icon="user" />
           </>
         ) : (
-          <MenuItem className="navbar_item" icon="user" href="/login" />
+          <MenuItem className="menu_item" icon="user" href="/login" />
         )}
         <MenuItem
+          className="menu_item"
           key="en"
           text={t('navbar.english')}
           onClick={() => changeLanguage('en')}
         />
         <MenuItem
+          className="menu_item"
           key="pl"
           text={t('navbar.polish')}
           onClick={() => changeLanguage('pl')}
         />
-        <MenuItem className="navbar_item">
-          <button onClick={() => changeLanguage('en')}>
-            <img src="../../images/english.png" alt="English" />
-          </button>
-          <button onClick={() => changeLanguage('pl')}>
-            <img src="../../images/polish.jpg" alt="Polish" />
-          </button>
-        </MenuItem>
       </Menu>
     </div>
   );

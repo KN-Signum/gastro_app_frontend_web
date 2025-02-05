@@ -13,10 +13,20 @@ export default function Logo({ className }: LogoProps) {
   };
 
   return (
-    <Row justify="flex-start" gutter={20}>
-      <Col fixed>
+    <Row gutter={2}>
+      <Col>
         <Menu bordered className={className}>
-          <MenuItem text="GastroApp" onClick={handleLogoClick} />
+          <MenuItem
+            style={{
+              height: '80%',
+              width: '300%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            text="GastroApp"
+            onClick={handleLogoClick}
+          />
         </Menu>
       </Col>
     </Row>

@@ -7,7 +7,7 @@ import './DashboardPage.css';
 export default function DashboardPage() {
   const [dataFetched, setDataFetched] = useState(false);
   const [patientsCount, setPatientsCount] = useState<number>(0);
-  const [surveysCount, setSurveysCount] = useState<number>(5);
+  const [surveysCount] = useState<number>(5);
   const [emergenciesCount, setEmergenciesCount] = useState<number>(0);
 
   useEffect(() => {

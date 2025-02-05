@@ -1,39 +1,38 @@
 .navbar {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 1%;
   width: 100%;
-  height: 4%;
+  height: 6%;
   position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 500;
+  top: 2%;
+  left: 1%;
+  z-index: 200;
   background-color: #fff;
-}
-
-.logo {
-  height: 100%;
-  width: 30%;
-  display: flex;
-  align-items: center;
+  gap: 1%;
 }
 
 .menu {
   display: flex;
-  width: 70%;
-  flex-direction: row;
+  width: 60%;
+  height: 120%;
   justify-content: flex-start;
-  align-items: center;
-  padding: 1%;
   flex: 1;
+  gap: 2%;
 }
 
-.navbar_item {
-  text-align: center;
-  padding: 0 20px;
+.menu_item {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.navbar_item:first-child {
-  margin-right: auto;
+.logo {
+  display: flex;
+  width: 265px;
+  height: 120%;
+}
+
+.logo .w-icon.w-menu-item-icon.w-icon-middle {
+  display: none; /* Add this rule to hide the unwanted icon */
 }
