@@ -23,6 +23,7 @@ export default function Logo({ className }: LogoProps) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              textAlign: 'center',
             }}
             text="GastroApp"
             onClick={handleLogoClick}

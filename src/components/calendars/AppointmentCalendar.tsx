@@ -5,9 +5,7 @@ import { GastroappClient } from '../../api/gastroapp-client';
 import { Badge, Calendar, Popover, Card } from 'uiw';
 import './AppointmentCalendar.css';
 
-interface AppointmentCalendarProps {}
-
-export default function AppointmentCalendar({}: AppointmentCalendarProps) {
+export default function AppointmentCalendar() {
   const { t } = useTranslation();
   const [appointments, setAppointments] = useState<GetAppointmentDto[]>([]);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -106,6 +104,7 @@ export default function AppointmentCalendar({}: AppointmentCalendarProps) {
   return (
     <div>
       <Calendar
+        className="calendar-settings"
         data={filterData(data)}
         monthLabel={monthLabels}
         weekday={weekdayLabels}

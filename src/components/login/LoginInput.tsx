@@ -60,7 +60,7 @@ export default function LoginInput() {
             } else {
               Notify.error({
                 title: t('notify.error'),
-                description: response.data?.message || t('login.failed'),
+                description: response.data || t('login.failed'),
               });
             }
           } catch {
@@ -104,7 +104,6 @@ export default function LoginInput() {
         }}
       >
         {({ fields, state, canSubmit, resetForm }) => {
-          console.log('fields:', state);
           return (
             <div>
               <Row gutter={10}>

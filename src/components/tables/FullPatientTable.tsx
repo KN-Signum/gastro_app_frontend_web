@@ -178,17 +178,12 @@ export default function FullPatientTable() {
 
   return (
     <div className="full-table">
-      {loading ? (
-        <Skeleton
-          loading={loading}
-          active
-          paragraph={{ className: 'full-table', width: '1000px', rows: 15 }}
-        >
-          <Table bordered columns={columns} data={[]} />
-        </Skeleton>
-      ) : (
-        <Table bordered columns={columns} data={data} />
-      )}
+      <Table
+        bordered
+        columns={columns}
+        data={data}
+        scroll={{ x: 1000, y: 500 }}
+      />
     </div>
   );
 }
