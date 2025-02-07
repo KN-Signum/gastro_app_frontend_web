@@ -3,12 +3,10 @@
 }
 .full-table {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 2%;
 }
 
 .assign-table {
   width: 50%;
-  border-collapse: collapse;
-  margin-top: 20px;
+  margin-top: 2%;
 }

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { GetFullPatientDto } from '../../dto/PatientDto';
 import { Table, Button } from 'uiw';
+import { Skeleton } from 'antd';
 import './PatientTable.css';
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { GastroappClient } from '../../api/gastroapp-client';
@@ -164,11 +165,11 @@ export default function FullPatientTable() {
       ),
       key: 'actions',
       width: 90,
-      render: (text: any, record: any) => {
-        console.log('Record:', record); // Debugging line
+      render: (text, key: string, rowData, rowNumber, columnNumber) => {
+        console.log('Record:', key); // Debugging line
         return (
           <Suspense fallback={<div>Loading modal...</div>}>
-            <AssignDrugModal patientId={record.id} />
+            <AssignDrugModal patientId={rowData.id} />
           </Suspense>
         );
       },
@@ -178,7 +179,13 @@ export default function FullPatientTable() {
   return (
     <div className="full-table">
       {loading ? (
-        <div>{t('loading')}</div>
+        <Skeleton
+          loading={loading}
+          active
+          paragraph={{ className: 'full-table', width: '1000px', rows: 15 }}
+        >
+          <Table bordered columns={columns} data={[]} />
+        </Skeleton>
       ) : (
         <Table bordered columns={columns} data={data} />
       )}

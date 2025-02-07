@@ -5,10 +5,8 @@ import { GetMeResponseDto, LoginRequestDto } from '../dto/AuthDto';
 import { GetDoctorDto } from '../dto/DoctorDto';
 import {
   CreatePatientDto,
-  CreatePatientResponseDto,
   GetAllPatientsPatientDto,
   GetFullPatientDto,
-  GetPatientDto,
 } from '../dto/PatientDto';
 import { CreateDrugDto } from '../dto/DrugDto';
 import { CreateAppointmentDto, GetAppointmentDto } from '../dto/AppointmentDto';
@@ -62,7 +60,7 @@ export class GastroappClient {
 
   public async login(
     data: LoginRequestDto
-  ): Promise<ClientResponse<undefined | Error>> {
+  ): Promise<ClientResponse<string | undefined>> {
     try {
       const response: AxiosResponse = await this.client.post('/login/', data);
 
@@ -80,11 +78,13 @@ export class GastroappClient {
         status: response.data.status,
       };
     } catch (error) {
-      const axiosError = error as AxiosError<Error>;
-
+      const axiosError = error as AxiosError<{
+        status: number;
+        content: string;
+      }>;
       return {
         success: false,
-        data: axiosError.response?.data,
+        data: axiosError.response?.data?.content,
         status: axiosError.response?.status || 0,
       };
     }
@@ -222,10 +222,13 @@ export class GastroappClient {
         status: response.data.status,
       };
     } catch (error) {
-      const axiosError = error as AxiosError<Error>;
+      const axiosError = error as AxiosError<{
+        status: number;
+        content: string;
+      }>;
       return {
         success: false,
-        data: undefined,
+        data: axiosError.response?.data?.content,
         status: axiosError.response?.status || 0,
       };
     }
@@ -249,10 +252,13 @@ export class GastroappClient {
         status: response.data.status,
       };
     } catch (error) {
-      const axiosError = error as AxiosError<Error>;
+      const axiosError = error as AxiosError<{
+        status: number;
+        content: string;
+      }>;
       return {
         success: false,
-        data: undefined,
+        data: axiosError.response?.data?.content,
         status: axiosError.response?.status || 0,
       };
     }
@@ -278,12 +284,13 @@ export class GastroappClient {
         status: response.data.status,
       };
     } catch (error) {
-      const axiosError = error as AxiosError<Error>;
-      console.log(error);
-
+      const axiosError = error as AxiosError<{
+        status: number;
+        content: string;
+      }>;
       return {
         success: false,
-        data: undefined,
+        data: axiosError.response?.data?.content,
         status: axiosError.response?.status || 0,
       };
     }
@@ -309,12 +316,13 @@ export class GastroappClient {
         status: response.data.status,
       };
     } catch (error) {
-      const axiosError = error as AxiosError<Error>;
-      console.log(error);
-
+      const axiosError = error as AxiosError<{
+        status: number;
+        content: string;
+      }>;
       return {
         success: false,
-        data: undefined,
+        data: axiosError.response?.data?.content,
         status: axiosError.response?.status || 0,
       };
     }

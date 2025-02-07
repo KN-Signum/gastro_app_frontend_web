@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, Input, Row, Col, Notify, Button, Icon } from 'uiw';
+import { useState } from 'react';
+import { Form, Input, Row, Col, Notify, Button } from 'uiw';
 import { useTranslation } from 'react-i18next';
 import { useApi } from '../../api/ApiProvider';
 import { LoginRequestDto } from '../../dto/AuthDto';
@@ -7,8 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginInput() {
   const { t } = useTranslation();
-  const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState<{
+  const [, setErrors] = useState<{
     username?: string;
     password?: string;
   }>({});
@@ -57,10 +56,6 @@ export default function LoginInput() {
             const response = await apiClient.login(loginData);
 
             if (response.success) {
-              Notify.success({
-                title: t('notify.success'),
-                description: t('login.success'),
-              });
               navigate('/home');
             } else {
               Notify.error({
@@ -68,7 +63,7 @@ export default function LoginInput() {
                 description: response.data?.message || t('login.failed'),
               });
             }
-          } catch (err) {
+          } catch {
             Notify.error({
               title: t('notify.error'),
               description: t('login.failed'),
