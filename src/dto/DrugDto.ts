@@ -1,3 +1,6 @@
+/**
+ * DTO represent details about adding a drug
+ */
 export class CreateDrugDto {
   name: string = '';
   dosage: string = '';

@@ -1,6 +1,9 @@
 import { createContext, useContext } from 'react';
 import { GastroappClient } from './gastroapp-client';
 
+//Create context fo API
+//Provide hook useAPI to use API in components
+
 const ApiContext = createContext(new GastroappClient());
 
 export default function ApiProvider({
@@ -16,5 +19,5 @@ export default function ApiProvider({
 }
 
 export function useApi() {
-  return useContext(ApiContext);
+  return useContext(ApiContext); 
 }

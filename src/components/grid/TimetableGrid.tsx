@@ -2,6 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, Col } from 'uiw';
 
+/**
+ * renders a weekly schedule grid.
+ * contains weekday and hour designations in the range 7:00 - 22:00.
+ * allow to display information about available hours and reserved dates.
+ */
 export default function TimetableGrid() {
   const { t } = useTranslation();
   const rowStyl: React.CSSProperties = {

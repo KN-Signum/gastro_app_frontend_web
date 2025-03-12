@@ -13,6 +13,11 @@ import {
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { GastroappClient } from '../../api/gastroapp-client';
 import { CreateDrugDto } from '../../dto/DrugDto';
+/**
+ * responsible for the form for adding a drug to a patient
+ * input data: name, dose, start and end dates, additional information, number of doses
+ * input data are sending to API
+ */
 
 class ValidationError extends Error {
   filed: { [key: string]: string };

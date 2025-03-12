@@ -4,6 +4,11 @@ import CreateAppointmentModal from '../../components/modal/CreateAppointmentModa
 import { GastroappClient } from '../../api/gastroapp-client';
 import { GetAppointmentDto } from '../../dto/AppointmentDto';
 import './CalendarPage.css';
+/**==================================
+ * display the patient visit calendar 
+ * form for creating new visits
+ ==================================*/
+
 
 export default function CalendarPage() {
   return (

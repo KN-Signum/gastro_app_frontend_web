@@ -12,7 +12,12 @@ import CalendarPage from './pages/calendar/CalendarPage';
 import { useEffect, useState } from 'react';
 import { GastroappClient } from './api/gastroapp-client';
 import DashboardPage from './pages/dashboard/DashboardPage';
-
+/**
+ * ==========================
+ * Main Application Component 
+ * ==========================
+ * contains routing and login logic.
+ */
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);

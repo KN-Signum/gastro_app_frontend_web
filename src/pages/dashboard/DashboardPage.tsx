@@ -3,7 +3,9 @@ import BlockOfInfoCards from '../../components/cards/BlockOfCards';
 import AppointmentCalendar from '../../components/calendars/AppointmentCalendar';
 import { GastroappClient } from '../../api/gastroapp-client';
 import './DashboardPage.css';
-
+/**==================================
+ * display general data and a calendar of visits
+ ==================================*/
 export default function DashboardPage() {
   const [dataFetched, setDataFetched] = useState(false);
   const [patientsCount, setPatientsCount] = useState<number>(0);
