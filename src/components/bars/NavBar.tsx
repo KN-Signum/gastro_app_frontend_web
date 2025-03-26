@@ -31,13 +31,23 @@ export default function NavBar({ isLoggedIn }: NavBarProps) {
         <MenuItem
           className="menu_item"
           key="en"
-          text={t('navbar.english')}
+          text={
+            <>
+              <img src="/src/images/english.png" alt="EN" />
+              
+            </>
+          }
           onClick={() => changeLanguage('en')}
         />
         <MenuItem
           className="menu_item"
           key="pl"
-          text={t('navbar.polish')}
+          text={
+            <>
+              <img src="/src/images/polish.jpg" alt="PL" />
+              
+            </>
+          }
           onClick={() => changeLanguage('pl')}
         />
       </Menu>
