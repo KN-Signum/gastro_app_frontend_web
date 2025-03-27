@@ -2,14 +2,22 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import Cookies from 'universal-cookie';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { GetMeResponseDto, LoginRequestDto } from '../dto/AuthDto';
+import { CreateDrugDto } from '../dto/DrugDto';
+import { CreateAppointmentDto, GetAppointmentDto } from '../dto/AppointmentDto';
 import { GetDoctorDto } from '../dto/DoctorDto';
 import {
-  CreatePatientDto,
+  CreatePatientDto, 
   GetAllPatientsPatientDto,
   GetFullPatientDto,
 } from '../dto/PatientDto';
-import { CreateDrugDto } from '../dto/DrugDto';
-import { CreateAppointmentDto, GetAppointmentDto } from '../dto/AppointmentDto';
+
+
+/**
+ * API client for Gastroapp
+ * provide metods for communications with backend
+ * handle user authorization, management of patients, doctors, drugs and visits
+ * use Axios to perform HTTP requests 
+ */
 
 export type ClientResponse<T> = {
   success: boolean;
@@ -153,7 +161,7 @@ export class GastroappClient {
       const response: AxiosResponse<{
         status: number;
         content: GetFullPatientDto[];
-      }> = await this.client.get('api/get_my_patients');
+      }> = await this.client.get('/api/get_my_patients', { signal: p0.signal });
 
       console.log(response.data);
 

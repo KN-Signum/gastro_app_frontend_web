@@ -5,6 +5,12 @@ import { useApi } from '../../api/ApiProvider';
 import { LoginRequestDto } from '../../dto/AuthDto';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * support user login form 
+ * validates input data (email and password) and passes it to the API for authentication
+ * after validation redirects to the main page
+ */
+
 export default function LoginInput() {
   const { t } = useTranslation();
   const [, setErrors] = useState<{

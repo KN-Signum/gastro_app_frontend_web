@@ -2,7 +2,10 @@ import { useTranslation } from 'react-i18next';
 import { GetPatientDto } from '../../dto/PatientDto';
 import { Table } from 'uiw';
 import './PatientTable.css';
-
+/**
+ * displays a table of patients with their data in the app
+ * table columns: full name, Mayo status, last visit date, list of prescribed medications
+ */
 export default function PatientTable({
   patients,
 }: {

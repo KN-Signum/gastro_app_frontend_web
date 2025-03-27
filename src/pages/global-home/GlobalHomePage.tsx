@@ -3,7 +3,9 @@ import { Outlet } from 'react-router-dom';
 import './GlobalHomePage.css';
 import WholeNavBar from '../../components/bars/Wholebar';
 import { useTranslation } from 'react-i18next';
-
+/** ==================================
+ * Global Home Page for unlogged user
+ * ==================================*/
 interface GlobalHomePageProps {
   isLoggedIn: boolean;
 }

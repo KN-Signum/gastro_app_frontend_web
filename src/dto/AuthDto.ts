@@ -1,3 +1,7 @@
+/**
+ * DTO represent details about login
+ */
+
 export class LoginRequestDto {
   email: string = '';
   password: string = '';
