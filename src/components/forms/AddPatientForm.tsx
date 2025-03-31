@@ -5,12 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { GastroappClient } from '../../api/gastroapp-client';
 import { CreatePatientDto } from '../../dto/PatientDto';
 
-/**
- * responsible for the form for adding a new patient
- * input data: name, email, phone number, password, height, weight, age
- * input data are sending to API
- */
-
 class ValidationError extends Error {
   filed: { [key: string]: string };
 

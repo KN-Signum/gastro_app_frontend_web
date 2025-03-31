@@ -1,4 +1,3 @@
-//simple patient data
 export class GetPatientDto {
   full_name: string = '';
   mayo_stance: string = '';
@@ -6,7 +5,6 @@ export class GetPatientDto {
   drugs: string[] = [];
 }
 
-//detailed patient data
 export class GetFullPatientDto {
   id: string = '';
   name: string = '';
@@ -18,7 +16,6 @@ export class GetFullPatientDto {
   phone_number: string = '';
 }
 
-//create a new patient in the system
 export class CreatePatientDto {
   name: string = '';
   email: string = '';
@@ -29,18 +26,15 @@ export class CreatePatientDto {
   age: number = 0;
 }
 
-//response from the server after an attempt to create a patient
 export class CreatePatientResponseDto {
   status: string = '';
   data: string = '';
 }
 
-//list of patients who are available in the system
 export class GetAllPatientsDto {
   patients: GetAllPatientsPatientDto[] = [];
 }
 
-//list of all doctor's patients
 export class GetAllPatientsPatientDto {
   id: string = '';
   name: string = '';

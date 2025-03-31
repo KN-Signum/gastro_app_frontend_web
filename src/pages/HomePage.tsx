@@ -1,23 +1,24 @@
-import { useTranslation } from 'react-i18next';
 import WholeNavBar from '../components/bars/Wholebar';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import './global-home/GlobalHomePage.css';
+import { useUserCtx } from '../Providers/UserProvider';
+import Home from './home/Home';
 
-interface HomePageProps {
-  isLoggedIn: boolean;
-}
+export default function HomePage() {
+  const userCtx = useUserCtx()
+  const location = useLocation();
 
-export default function HomePage({ isLoggedIn }: HomePageProps) {
-  const { t } = useTranslation();
-
-  if (!isLoggedIn) {
+  if (!userCtx.isLoggedIn) {
     return null;
   }
 
   return (
     <div className="global-home-page">
-      <WholeNavBar isLoggedIn={isLoggedIn} />
+      <WholeNavBar />
       <div className="content">
+        {location.pathname === '/' && (
+          <Home />
+        )}
         <div className="outlet-container">
           <Outlet />
         </div>

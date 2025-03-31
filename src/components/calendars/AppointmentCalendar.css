@@ -2,8 +2,47 @@
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
+  color: black!important;
 }
-
-.calendar-settings {
-  min-width: 1000px;
+.w-datepicker-weekday div{
+  background-color: rgb(124, 124, 251) !important;
+  color: black!important;
+}
+.end{
+  color: black!important;
+}
+.calendar-settings{
+  width: 900px;
+  height: 500px;
+  overflow: hidden;
+  color: black!important;
+}
+.w-calendar-panel{
+  height: 25px !important;
+  color: black!important;
+}
+.w-datepicker-week > div.prev{
+  color:rgb(124, 124, 251)
+}
+.w-datepicker-week > div.prev, .w-datepicker-week > div.next{
+  color: rgb(124, 124, 251)!important;
+}
+.w-modal-body{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+.appointmentModalCard{
+  height: 350px;
+}
+.appointmentModalCard .w-card-body{
+  height: 230px
+}
+.appointmentCardButtonContainer{
+  min-width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

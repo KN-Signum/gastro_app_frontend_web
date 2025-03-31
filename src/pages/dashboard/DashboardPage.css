@@ -1,8 +1,8 @@
 .dashboard-page {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2%;
+  align-items: flex-start;
+  gap: 3vh;
 }
 
 .calendar-container {

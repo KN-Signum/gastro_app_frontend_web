@@ -2,13 +2,15 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-/**
- * =======================
- * |   Main entry point  |
- * =======================
- */
+import UserProvider from './Providers/UserProvider.tsx'
+import PatientsProvider from './Providers/PatientsProvider.tsx'
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <UserProvider>
+      <PatientsProvider>
+        <App />
+      </PatientsProvider>
+    </UserProvider>
   </StrictMode>,
 )

@@ -1,23 +1,25 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: 1%;
   width: 10%;
   position: fixed;
-  top: 10%;
-  left: -0.1%;
+  top: 15vh;
+  left: 0%;
   z-index: 100;
-  background-color: #fff;
-  height: 300%;
+  background-color: inherit;
 }
 
 .menu-large {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   font-size: 1.5vw;
-  width: 165%;
-  height: 400%;
+  border-radius: 50px;
+  width: 150%;
+  height: 70vh;
   gap: 15%;
 }
 
@@ -25,7 +27,7 @@
   display: flex;
   flex-direction: row;
   width: 95%;
-  height: 300%;
+  height: 3vh;
   justify-content: center;
   align-items: center;
   font-size: 1.3vw;
@@ -33,4 +35,24 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   text-align: center;
+}
+.w-menu-item{
+  transition: color 0.3s ease-in-out;
+}
+.w-menu-item:hover{
+  background-color: inherit !important;
+  color: rgb(124, 124, 251) !important;
+}
+.w-menu-item-text{
+  height: 100%;
+  font-size: 1.3rem;
+  flex-grow: 0;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.w-icon, .w-icon svg{
+  width: 1.3rem;
+  height: 1.3rem
 }

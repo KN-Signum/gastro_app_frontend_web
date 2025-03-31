@@ -1,16 +1,10 @@
 import { useState } from 'react';
 import { Form, Input, Row, Col, Notify, Button } from 'uiw';
 import { useTranslation } from 'react-i18next';
-import { useApi } from '../../api/ApiProvider';
+import { useApi } from '../../Providers/ApiProvider';
 import { LoginRequestDto } from '../../dto/AuthDto';
 import { useNavigate } from 'react-router-dom';
-
-/**
- * support user login form 
- * validates input data (email and password) and passes it to the API for authentication
- * after validation redirects to the main page
- */
-
+import "./LoginInput.css"
 export default function LoginInput() {
   const { t } = useTranslation();
   const [, setErrors] = useState<{
@@ -21,7 +15,7 @@ export default function LoginInput() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className='loginForm'>
       <Form
         onSubmit={async ({ initial, current }) => {
           const errorObj: { username?: string; password?: string } = {};
@@ -52,7 +46,7 @@ export default function LoginInput() {
             throw err;
           }
           setErrors({});
-          console.log('-->>', initial, current);
+          
 
           try {
             const loginData: LoginRequestDto = {
@@ -62,7 +56,7 @@ export default function LoginInput() {
             const response = await apiClient.login(loginData);
 
             if (response.success) {
-              navigate('/home');
+              navigate('/dashboard');
             } else {
               Notify.error({
                 title: t('notify.error'),
@@ -92,6 +86,7 @@ export default function LoginInput() {
                 id="username-inline"
                 placeholder={t('login.email_placeholder')}
                 type="email"
+                className='input'
               />
             ),
           },
@@ -104,6 +99,7 @@ export default function LoginInput() {
                 id="password-inline"
                 placeholder={t('login.password_placeholder')}
                 type="password"
+                className='input'
               />
             ),
           },
@@ -111,8 +107,9 @@ export default function LoginInput() {
       >
         {({ fields, state, canSubmit, resetForm }) => {
           return (
-            <div>
-              <Row gutter={10}>
+            <div className='login'>
+              <h1 className='header'>Zaloguj się</h1>
+              <Row gutter={10} className='inputs'>
                 {fields && (
                   <>
                     <Col fixed>{fields.username}</Col>
@@ -120,16 +117,17 @@ export default function LoginInput() {
                   </>
                 )}
               </Row>
-              <Row gutter={10}>
+              <Row className='buttons'gutter={10}>
                 <Col>
                   <Button
+                    className='button'
                     disabled={canSubmit ? !canSubmit() : true}
                     type="primary"
                     htmlType="submit"
                   >
                     {t('login.login')}
                   </Button>
-                  <Button type="danger" onClick={resetForm}>
+                  <Button className='button' type="danger" onClick={resetForm}>
                     {t('login.reset')}
                   </Button>
                 </Col>

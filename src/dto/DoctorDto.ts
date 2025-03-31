@@ -1,7 +1,3 @@
-/**
- * DTO represent details about a doctor
- */
-
 export class GetDoctorDto {
   id: string = '';
   first_name: string = '';
