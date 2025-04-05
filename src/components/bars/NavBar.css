@@ -1,44 +1,53 @@
 .navbar {
   display: flex;
-  width: 100%;
-  height: 6%;
+  align-items: center;
+  justify-content: center;
+  width: 90vw;
+  height: 8vh;
   position: fixed;
   top: 2%;
-  left: 1%;
-  z-index: 200;
-  background-color: #fff;
-  gap: 1%;
+  left: calc(50% - 45vw);
+  z-index: 100;
+  background-color: inherit;
 }
 
 .menu {
   display: flex;
-  width: 60%;
-  height: 120%;
-  justify-content: flex-start;
-  flex: 1;
-  gap: 2%;
+  width: 45vw !important;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ffffff !important;
+  border-radius: 50px;
 }
+.menu_item .w-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.menu_item {
-  width: 100%;
-  height: 80%;
+}
+.menu li{
+  height: 90%;
+  width: auto;
+  min-width: 5vw;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-.menu_item img {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-right: 8px;
+.menu_item {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
+.w-menu{
+  min-width: 0 !important;
+}
 .logo {
   display: flex;
-  width: 265px;
-  height: 120%;
+  width: 10vw;
+  height: 100%;
 }
 
 .logo .w-icon.w-menu-item-icon.w-icon-middle {

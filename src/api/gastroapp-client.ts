@@ -2,22 +2,14 @@ import axios, { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 import Cookies from 'universal-cookie';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { GetMeResponseDto, LoginRequestDto } from '../dto/AuthDto';
-import { CreateDrugDto } from '../dto/DrugDto';
-import { CreateAppointmentDto, GetAppointmentDto } from '../dto/AppointmentDto';
 import { GetDoctorDto } from '../dto/DoctorDto';
 import {
-  CreatePatientDto, 
+  CreatePatientDto,
   GetAllPatientsPatientDto,
   GetFullPatientDto,
 } from '../dto/PatientDto';
-
-
-/**
- * API client for Gastroapp
- * provide metods for communications with backend
- * handle user authorization, management of patients, doctors, drugs and visits
- * use Axios to perform HTTP requests 
- */
+import { CreateDrugDto } from '../dto/DrugDto';
+import { CreateAppointmentDto, GetAppointmentDto } from '../dto/AppointmentDto';
 
 export type ClientResponse<T> = {
   success: boolean;
@@ -71,10 +63,8 @@ export class GastroappClient {
   ): Promise<ClientResponse<string | undefined>> {
     try {
       const response: AxiosResponse = await this.client.post('/login/', data);
-
       const decoded = jwtDecode<JwtPayload>(response.data.access_token);
-      console.log(decoded);
-
+      
       if (decoded.exp) {
         this.cookies.set('access_token', response.data.access_token, {
           expires: new Date(decoded.exp * 1000),
@@ -161,9 +151,7 @@ export class GastroappClient {
       const response: AxiosResponse<{
         status: number;
         content: GetFullPatientDto[];
-      }> = await this.client.get('/api/get_my_patients', { signal: p0.signal });
-
-      console.log(response.data);
+      }> = await this.client.get('api/get_my_patients');
 
       return {
         success: true,
@@ -344,7 +332,6 @@ export class GastroappClient {
         status: number;
         content: GetAppointmentDto[];
       }> = await this.client.get(`api/view_user_visits`);
-
       return {
         success: true,
         data: response.data.content,

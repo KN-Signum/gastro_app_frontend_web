@@ -12,29 +12,30 @@ import CalendarPage from './pages/calendar/CalendarPage';
 import { useEffect, useState } from 'react';
 import { GastroappClient } from './api/gastroapp-client';
 import DashboardPage from './pages/dashboard/DashboardPage';
-/**
- * ==========================
- * Main Application Component 
- * ==========================
- * contains routing and login logic.
- */
+import { useUserCtx } from './Providers/UserProvider';
+import { userType } from './types/types';
+
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const userCtx = useUserCtx()
+  
 
   useEffect(() => {
-    const client = new GastroappClient();
-    client
-      .getMe()
-      .then((response) => {
-        if (response.data) {
-          setIsLoggedIn(true);
-        }
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+    let isMounted = true
+    const fetchMe = async ()=>{
+      const client = new GastroappClient();
+      const response = await client.getMe();
+      if(!response.success){
+        return new Error("Cannot fetch data")
+      }
+      userCtx.setUser(response.data as userType)
+      userCtx.setIsLoggedIn(true)
+      setIsLoading(false)
+    }
+    fetchMe()
+    return(()=>{
+      isMounted = false
+    })
   }, []);
 
   if (isLoading) {
@@ -45,17 +46,8 @@ function App() {
     <BrowserRouter>
       <I18nextProvider i18n={i18n}>
         <Routes>
-          <Route
-            path="/"
-            element={
-              isLoggedIn ? (
-                <HomePage isLoggedIn={isLoggedIn} />
-              ) : (
-                <GlobalHomePage isLoggedIn={isLoggedIn} />
-              )
-            }
-          >
-            <Route path="home" element={<HomePage isLoggedIn={isLoggedIn} />} />
+          <Route path="/" element={ userCtx.isLoggedIn ? <HomePage /> : <GlobalHomePage />}>
+            <Route path="home" element={<HomePage />} />
             <Route path="patients" element={<PatientsPage />} />
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="assign_patient" element={<AssignPatientPage />} />

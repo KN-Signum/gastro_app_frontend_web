@@ -1,11 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Col, Menu, MenuItem, Row } from 'uiw';
 
-/**
- * displays logo
- * click at logo navigate to the \home page
- */
-
 interface LogoProps {
   className: string;
 }

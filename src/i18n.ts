@@ -4,10 +4,6 @@ import { initReactI18next } from 'react-i18next';
 import translationPL from './locales/pl.json';
 import translationEN from './locales/en.json';
 
-/**=========================
- * translate english/polish
- ===========================*/
-
 const resources = {
   en: {
     translation: translationEN,

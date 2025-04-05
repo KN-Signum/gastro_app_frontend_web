@@ -3,15 +3,15 @@ import BlockOfInfoCards from '../../components/cards/BlockOfCards';
 import AppointmentCalendar from '../../components/calendars/AppointmentCalendar';
 import { GastroappClient } from '../../api/gastroapp-client';
 import './DashboardPage.css';
-/**==================================
- * display general data and a calendar of visits
- ==================================*/
+import PatientsPreview from '../../components/tables/PatientsPreview';
+import { usePatientsCtx } from '../../Providers/PatientsProvider';
+
 export default function DashboardPage() {
   const [dataFetched, setDataFetched] = useState(false);
   const [patientsCount, setPatientsCount] = useState<number>(0);
   const [surveysCount] = useState<number>(5);
   const [emergenciesCount, setEmergenciesCount] = useState<number>(0);
-
+  const patietntsCtx = usePatientsCtx()
   useEffect(() => {
     const client = new GastroappClient();
     const controller = new AbortController();
@@ -19,14 +19,14 @@ export default function DashboardPage() {
 
     const fetchData = async () => {
       const patientsResponse = await client.getMyPatients({ signal });
-      if (patientsResponse.success && patientsResponse.data) {
+      if (patientsResponse.success && patientsResponse.data && patietntsCtx.setPatients) {
         setPatientsCount(patientsResponse.data.length);
+        patietntsCtx.setPatients(patientsResponse.data)
         const emergencyCount = patientsResponse.data.filter(
           (patient) => patient.cdai_score <= 2
         ).length;
         setEmergenciesCount(emergencyCount);
       }
-
       setDataFetched(true);
     };
 
@@ -46,9 +46,8 @@ export default function DashboardPage() {
         surveysCount={surveysCount}
         emergenciesCount={emergenciesCount}
       />
-      <div style={{ width: '100%' }}>
-        <AppointmentCalendar />
-      </div>
+      <PatientsPreview />
+      <AppointmentCalendar />
     </div>
   );
 }

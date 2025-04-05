@@ -1,15 +1,13 @@
+import { useUserCtx } from '../../Providers/UserProvider';
 import NavBar from './NavBar';
 import SideNavBar from './SideBar';
 
-interface WholeNavBarProps {
-  isLoggedIn: boolean;
-}
-
-export default function WholeNavBar({ isLoggedIn }: WholeNavBarProps) {
+export default function WholeNavBar() {
+  const userCtx = useUserCtx()
   return (
     <div>
-      <NavBar isLoggedIn={isLoggedIn} />
-      {isLoggedIn && <SideNavBar />}
+      <NavBar />
+      {userCtx.isLoggedIn && <SideNavBar />}
     </div>
   );
 }

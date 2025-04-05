@@ -3,13 +3,11 @@ import { useTranslation } from 'react-i18next';
 import './NavBar.css';
 import Logo from '../Logo';
 import i18n from '../../i18n';
+import { useUserCtx } from '../../Providers/UserProvider';
 
-interface NavBarProps {
-  isLoggedIn: boolean;
-}
-
-export default function NavBar({ isLoggedIn }: NavBarProps) {
+export default function NavBar() {
   const { t } = useTranslation();
+  const userCtx = useUserCtx()
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
@@ -17,11 +15,10 @@ export default function NavBar({ isLoggedIn }: NavBarProps) {
 
   return (
     <div className="navbar">
-      <Logo className="logo" />
-      <Menu bordered className="menu">
-        {isLoggedIn ? (
+      <Menu className="menu">
+        {userCtx.isLoggedIn ? (
           <>
-            <MenuItem className="menu_item" text={t('navbar.welcome')} />
+            <MenuItem className="menu_item" text={t('navbar.welcome')+" "+userCtx.user.first_name} />
             <MenuItem className="menu_item" icon="setting-o" />
             <MenuItem className="menu_item" icon="user" />
           </>
@@ -31,23 +28,13 @@ export default function NavBar({ isLoggedIn }: NavBarProps) {
         <MenuItem
           className="menu_item"
           key="en"
-          text={
-            <>
-              <img src="/src/images/english.png" alt="EN" />
-              
-            </>
-          }
+          text={t('navbar.english')}
           onClick={() => changeLanguage('en')}
         />
         <MenuItem
           className="menu_item"
           key="pl"
-          text={
-            <>
-              <img src="/src/images/polish.jpg" alt="PL" />
-              
-            </>
-          }
+          text={t('navbar.polish')}
           onClick={() => changeLanguage('pl')}
         />
       </Menu>
