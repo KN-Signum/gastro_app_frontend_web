@@ -1,4 +1,4 @@
-.loginForm{
+.loginForm {
     margin: 0;
     padding: 0;
     position: absolute;
@@ -11,12 +11,14 @@
     align-items: center;
     justify-content: center;
 }
-.header{
-    all:unset;
+
+.header {
+    all: unset;
     font-size: 36px;
 }
-.login{
-    width: 500px;
+
+.login {
+    width: 400px;
     height: 400px;
     display: flex;
     flex-direction: column;
@@ -26,26 +28,30 @@
     border: 1px solid black;
     border-radius: 20px;
 }
-.inputs{
+
+.inputs {
     display: flex;
     flex-direction: column;
     width: 20vw;
     padding: 5px;
 }
-.input{
+
+.input {
     padding: 5px;
     display: flex;
     align-items: center;
     gap: 10px;
     border-radius: 5px;
 }
-.buttons{
+
+.buttons {
     width: 20vw;
     display: flex;
     align-items: center;
     gap: 2vw;
 }
-.button{
+
+.button {
     width: 8vw;
     border-radius: 5px;
     font-size: larger;

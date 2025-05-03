@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './i18n';
-import LoginPage from './pages/LoginPage';
+import LoginPage from './pages/login-page/LoginPage';
 import PatientsPage from './pages/patient/PatientsPage';
 import TestPage from './pages/TestPage';
 import AssignPatientPage from './pages/patient/AssignPatientPage';
@@ -47,6 +47,7 @@ function App() {
       <I18nextProvider i18n={i18n}>
         <Routes>
           <Route path="/" element={userCtx.isLoggedIn ? <AppLayout /> : <LandingPage />}>
+            <Route index element={<DashboardPage />} />
             <Route path="patients" element={<PatientsPage />} />
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="assign_patient" element={<AssignPatientPage />} />

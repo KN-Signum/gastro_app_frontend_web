@@ -16,7 +16,7 @@ export default function AppointmentCalendar() {
     const client = new GastroappClient();
     const controller = new AbortController();
     const signal = controller.signal;
-    
+
     const fetchAppointments = async () => {
       const appointmentsResponse = await client.getAppointments({ signal });
       if (appointmentsResponse.success && appointmentsResponse.data) {
@@ -71,7 +71,7 @@ export default function AppointmentCalendar() {
     const formattedDate = date.toISOString().split('T')[0].replace(/-/g, '/');
     console.log(formattedDate)
     setSelectedDate(formattedDate);
-    setPopoverVisible(prev=>!prev);
+    setPopoverVisible(prev => !prev);
   };
 
   const renderPopupContent = () => {
@@ -80,41 +80,41 @@ export default function AppointmentCalendar() {
         appointment.date.split('T')[0].replace(/-/g, '/') === selectedDate
     );
 
-    
-    const getPatientById = (id: string)=>{
-        const patient = [...patientCtx.patients].filter((patietn)=>patietn.id === id)[0]
-        return patient
+
+    const getPatientById = (id: string) => {
+      const patient = [...patientCtx.patients].filter((patietn) => patietn.id === id)[0]
+      return patient
     }
 
-    return ( 
-        appointmentsForSelectedDate.length > 0 ? appointmentsForSelectedDate.map((appointment, index) => (
-          <Card 
-            key={index}
-            style={{ width: 220 }}
-            bordered={false}
-            title={`Spotkanie nr ${index + 1}`/*appointment.name jak tylko backend będzie to zwracał*/}
-            footer={selectedDate}
-            className='appointmentModalCard'
-          >
-            <div>
-              <p>{appointment.name}</p>
-              <p>{`${new Date(appointment.time_start).toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
-              })} - ${new Date(appointment.time_end).toLocaleTimeString([], {
-                hour: '2-digit',
-                minute: '2-digit',
-              })}`}</p>
-              <p>{`Patient ID: ${ getPatientById(appointment.patient_id)?.name}`}</p>
-              <p>{`Phone number: ${ getPatientById(appointment.patient_id)?.phone_number}`}</p>
-              <p>{`Email: ${ getPatientById(appointment.patient_id)?.email}`}</p>
-              <p>{`Dodatkowe informacje: ${appointment.additional_info}`}</p>
-              </div>
-          </Card>
-        ))
-     :
-    <div> Nie ma spotkań</div>
-  );
+    return (
+      appointmentsForSelectedDate.length > 0 ? appointmentsForSelectedDate.map((appointment, index) => (
+        <Card
+          key={index}
+          style={{ width: 220 }}
+          bordered={false}
+          title={`Spotkanie nr ${index + 1}`/*appointment.name jak tylko backend będzie to zwracał*/}
+          footer={selectedDate}
+          className='appointmentModalCard'
+        >
+          <div>
+            <p>{appointment.name}</p>
+            <p>{`${new Date(appointment.time_start).toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+            })} - ${new Date(appointment.time_end).toLocaleTimeString([], {
+              hour: '2-digit',
+              minute: '2-digit',
+            })}`}</p>
+            <p>{`Patient ID: ${getPatientById(appointment.patient_id)?.name}`}</p>
+            <p>{`Phone number: ${getPatientById(appointment.patient_id)?.phone_number}`}</p>
+            <p>{`Email: ${getPatientById(appointment.patient_id)?.email}`}</p>
+            <p>{`Dodatkowe informacje: ${appointment.additional_info}`}</p>
+          </div>
+        </Card>
+      ))
+        :
+        <div> Nie ma spotkań</div>
+    );
   };
   return (
     <div>
@@ -129,22 +129,22 @@ export default function AppointmentCalendar() {
         }
       />
       {selectedDate && (
-      <Modal
-        title={`Szczegóły dnia: ${selectedDate}`}
-        isOpen={popoverVisible}
-        onClose={()=>setPopoverVisible(false)}
-        width={600}
-        useButton={false}
-        className='appointmentModal'
-        onBackdropClick={(e: React.MouseEvent) => {e.stopPropagation()}}
-      >
-      {renderPopupContent()}
-      <div className='appointmentCardButtonContainer'>
-        <Button type="primary" onClick={()=>setPopoverVisible(false)}>
-          Zamknij
-        </Button>
-      </div>
-      </Modal> 
+        <Modal
+          title={`Szczegóły dnia: ${selectedDate}`}
+          isOpen={popoverVisible}
+          onClose={() => setPopoverVisible(false)}
+          width={600}
+          useButton={false}
+          className='appointmentModal'
+          onBackdropClick={(e: React.MouseEvent) => { e.stopPropagation() }}
+        >
+          {renderPopupContent()}
+          <div className='appointmentCardButtonContainer'>
+            <Button type="primary" onClick={() => setPopoverVisible(false)}>
+              Zamknij
+            </Button>
+          </div>
+        </Modal>
       )}
     </div>
   );

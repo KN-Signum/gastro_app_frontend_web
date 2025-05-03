@@ -5,13 +5,15 @@ import { GastroappClient } from '../../api/gastroapp-client';
 import './DashboardPage.css';
 import PatientsPreview from '../../components/tables/PatientsPreview';
 import { usePatientsCtx } from '../../Providers/PatientsProvider';
+// import ScheduleTimeline from '../../components/timeline/ScheduleTimeline';
 
 export default function DashboardPage() {
   const [dataFetched, setDataFetched] = useState(false);
   const [patientsCount, setPatientsCount] = useState<number>(0);
   const [surveysCount] = useState<number>(5);
   const [emergenciesCount, setEmergenciesCount] = useState<number>(0);
-  const patietntsCtx = usePatientsCtx()
+  const patientsCtx = usePatientsCtx();
+
   useEffect(() => {
     const client = new GastroappClient();
     const controller = new AbortController();
@@ -19,9 +21,9 @@ export default function DashboardPage() {
 
     const fetchData = async () => {
       const patientsResponse = await client.getMyPatients({ signal });
-      if (patientsResponse.success && patientsResponse.data && patietntsCtx.setPatients) {
+      if (patientsResponse.success && patientsResponse.data && patientsCtx.setPatients) {
         setPatientsCount(patientsResponse.data.length);
-        patietntsCtx.setPatients(patientsResponse.data)
+        patientsCtx.setPatients(patientsResponse.data);
         const emergencyCount = patientsResponse.data.filter(
           (patient) => patient.cdai_score <= 2
         ).length;
@@ -40,14 +42,25 @@ export default function DashboardPage() {
   }, [dataFetched]);
 
   return (
-    <div className="dashboard-page">
-      <BlockOfInfoCards
-        patientsCount={patientsCount}
-        surveysCount={surveysCount}
-        emergenciesCount={emergenciesCount}
-      />
-      <PatientsPreview />
-      <AppointmentCalendar />
+    <div className="dashboard">
+      <div className="dashboard-cards">
+        <BlockOfInfoCards
+          patientsCount={patientsCount}
+          surveysCount={surveysCount}
+          emergenciesCount={emergenciesCount}
+        />
+      </div>
+
+      <div className="dashboard-section">
+        <div className="dashboard-main">
+          <PatientsPreview />
+          <AppointmentCalendar />
+        </div>
+
+        {/* <div className="dashboard-schedule">
+          <ScheduleTimeline />
+        </div> */}
+      </div>
     </div>
   );
 }

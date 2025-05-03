@@ -2,45 +2,61 @@
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  color: black!important;
+  color: black !important;
 }
-.w-datepicker-weekday div{
+
+.w-datepicker-weekday div {
   background-color: rgb(124, 124, 251) !important;
-  color: black!important;
+  color: black !important;
 }
-.end{
-  color: black!important;
+
+.end {
+  color: black !important;
 }
-.calendar-settings{
-  width: 900px;
-  height: 500px;
+
+.calendar-settings {
+  width: 100%;
+  max-width: 480px;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  color: #222;
   overflow: hidden;
-  color: black!important;
 }
-.w-calendar-panel{
+
+.w-calendar-panel {
   height: 25px !important;
-  color: black!important;
+  color: black !important;
 }
-.w-datepicker-week > div.prev{
-  color:rgb(124, 124, 251)
+
+.w-datepicker-week>div.prev {
+  color: rgb(124, 124, 251)
 }
-.w-datepicker-week > div.prev, .w-datepicker-week > div.next{
-  color: rgb(124, 124, 251)!important;
+
+.w-datepicker-week>div.prev,
+.w-datepicker-week>div.next {
+  color: rgb(124, 124, 251) !important;
 }
-.w-modal-body{
+
+.w-modal-body {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 15px;
 }
-.appointmentModalCard{
+
+.appointmentModalCard {
   height: 350px;
 }
-.appointmentModalCard .w-card-body{
+
+.appointmentModalCard .w-card-body {
   height: 230px
 }
-.appointmentCardButtonContainer{
+
+.appointmentCardButtonContainer {
   min-width: 90%;
   display: flex;
   align-items: center;

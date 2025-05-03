@@ -1,8 +1,52 @@
-.patientsPrevievContainer{
+.patientsPreviewTable {
     width: 100%;
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.patientsPreviewHeader {
     display: flex;
-    flex-direction: row-reverse;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
+    margin-bottom: 0.5rem;
+}
+
+/* uiw table header */
+.w-table-thead {
+    background-color: #7B5EF7;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.w-table-thead {
+    background-color: #7B5EF7;
+}
+
+.w-table-th {
+    background-color: #7B5EF7 !important;
+    color: #fff !important;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+}
+
+/* uiw table body rows */
+.w-table-td {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    color: #333;
+    border-bottom: 1px solid #eee;
+}
+
+.w-table-tbody .w-table-tr:nth-child(odd) {
+    background-color: #f6f5fd;
+}
+
+.w-table-tbody .w-table-tr:hover {
+    background-color: #eeeafd;
+    transition: background 0.2s ease;
 }
