@@ -1,7 +1,8 @@
 {
-  "home": {
-    "title": "Welcome to home page.",
-    "subtitle": "Please log in to perform actions."
+  "landing-page": {
+    "title": "GastroApp",
+    "subtitle": "Please log in to perform actions.",
+    "cta": "Log in"
   },
   "login": {
     "email": "Email",
@@ -128,11 +129,25 @@
       "November",
       "December"
     ],
-    "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "weekdays": [
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat"
+    ],
     "today": "Today"
   },
   "grid": {
-    "weekdays": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    "weekdays": [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri"
+    ]
   },
   "appointment": {
     "create": "Create appointment",
