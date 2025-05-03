@@ -1,5 +1,7 @@
 .patientsPreviewTable {
     width: 100%;
+    min-width: 500px;
+    max-width: 100%;
     overflow-x: auto;
     border-radius: 12px;
     border: 1px solid #e0e0e0;

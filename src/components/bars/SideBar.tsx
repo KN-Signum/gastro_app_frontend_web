@@ -6,6 +6,16 @@ export default function SideNavBar() {
   const { t } = useTranslation();
   return (
     <div className="sidebar">
+      <div className="sidebar-logo">
+        <Row align="middle">
+          <Col>
+            <img src="/logo.svg" alt="GastroApp Logo" style={{ width: '70%' }} />
+          </Col>
+          <Col>
+            <span className="sidebar-title" style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>GastroApp</span>
+          </Col>
+        </Row>
+      </div>
       <Row justify="flex-start" gutter={20}>
         <Col fixed>
           <Menu className="menu-large" bordered>
