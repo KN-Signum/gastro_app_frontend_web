@@ -1,4 +1,6 @@
+import React from 'react';
 import { Menu, MenuItem } from '@uiw/react-menu';
+import { Popover } from 'uiw';
 import { useTranslation } from 'react-i18next';
 import './NavBar.css';
 import i18n from '../../i18n';
@@ -15,7 +17,6 @@ export default function NavBar() {
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
-
   const handleLogout = () => {
     client.logout();
     userCtx.setUser(null);
@@ -23,38 +24,42 @@ export default function NavBar() {
     navigate('/');
   };
 
+  const langMenu = (
+    <Menu bordered style={{ minWidth: 120 }}>
+      <MenuItem
+        icon={<img src="/flags/en.png" alt="EN" width="24" />}
+        text={t('navbar.english')}
+        onClick={() => changeLanguage('en')}
+      />
+      <MenuItem
+        icon={<img src="/flags/pl.png" alt="PL" width="24" />}
+        text={t('navbar.polish')}
+        onClick={() => changeLanguage('pl')}
+      />
+    </Menu>
+  );
+
   return (
     <div className="navbar">
       <Menu className="menu">
         {userCtx.isLoggedIn ? (
           <>
-            <MenuItem
-              className="menu_item"
-              text={t('navbar.welcome') + ' ' + userCtx.user!.first_name}
-            />
-            <MenuItem className="menu_item" icon="setting-o" />
-            <MenuItem
-              className="menu_item"
-              icon="user"
-              text={t('navbar.logout')}
-              onClick={handleLogout}
-            />
+            <MenuItem text={`${t('navbar.welcome')} ${userCtx.user!.first_name}`} />
+            <MenuItem icon="setting-o" />
+            <MenuItem icon="user" onClick={handleLogout} />
           </>
         ) : (
-          <MenuItem className="menu_item" icon="user" href="/login" />
+          <MenuItem icon="user" href="/login" />
         )}
-        <MenuItem
-          className="menu_item"
-          key="en"
-          text={t('navbar.english')}
-          onClick={() => changeLanguage('en')}
-        />
-        <MenuItem
-          className="menu_item"
-          key="pl"
-          text={t('navbar.polish')}
-          onClick={() => changeLanguage('pl')}
-        />
+        <Popover
+          trigger="click"
+          placement="bottomLeft"
+          visibleArrow={false}
+          usePortal={false}
+          content={langMenu}
+        >
+          <MenuItem className="menu_item language" icon="global" />
+        </Popover>
       </Menu>
     </div>
   );

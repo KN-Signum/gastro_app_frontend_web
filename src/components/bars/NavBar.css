@@ -13,12 +13,28 @@
 
 .menu {
   display: flex;
-  width: 65vw !important;
+  width: 75vw !important;
   height: 80%;
-  justify-content: space-around;
+  justify-content: flex-start !important;
   align-items: center;
   background-color: #ffffff !important;
   border-radius: 8px;
+}
+
+.menu>li:nth-child(2) {
+  margin-left: auto !important;
+}
+
+.menu_item.language .w-menu-item-addon {
+  display: none !important;
+}
+
+.menu_item.language {
+  position: relative;
+}
+
+.w-overlay {
+  z-index: 1000;
 }
 
 .menu_item .w-icon {
