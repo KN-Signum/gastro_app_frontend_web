@@ -1,5 +1,5 @@
-import { Button } from 'uiw';
-import { User } from '@uiw/icons';       // już działa
+import { Button, Icon } from 'uiw';
+import { User } from '@uiw/icons';
 import { useTranslation } from 'react-i18next';
 import './LandingPage.css';
 import { Link } from 'react-router-dom';
@@ -18,7 +18,8 @@ export default function LandingPage() {
                         type="primary"
                         size="large"
                         className="custom-primary"
-                        icon={<User width={18} height={18} fill="#fff" />}
+                        icon="login"
+
                     >
                         {t('landing-page.cta')}
                     </Button>

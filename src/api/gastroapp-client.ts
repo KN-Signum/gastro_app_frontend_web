@@ -35,6 +35,11 @@ export class GastroappClient {
     });
   }
 
+  public logout(): void {
+    this.cookies.remove('access_token');
+  }
+
+
   public async getMe(): Promise<ClientResponse<GetMeResponseDto | undefined>> {
     try {
       const response: AxiosResponse<{
@@ -64,7 +69,7 @@ export class GastroappClient {
     try {
       const response: AxiosResponse = await this.client.post('/login/', data);
       const decoded = jwtDecode<JwtPayload>(response.data.access_token);
-      
+
       if (decoded.exp) {
         this.cookies.set('access_token', response.data.access_token, {
           expires: new Date(decoded.exp * 1000),

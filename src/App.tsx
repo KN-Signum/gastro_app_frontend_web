@@ -47,7 +47,6 @@ function App() {
       <I18nextProvider i18n={i18n}>
         <Routes>
           <Route path="/" element={userCtx.isLoggedIn ? <AppLayout /> : <LandingPage />}>
-            <Route index element={<DashboardPage />} />
             <Route path="patients" element={<PatientsPage />} />
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="assign_patient" element={<AssignPatientPage />} />

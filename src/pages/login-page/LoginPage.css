@@ -1,27 +1,19 @@
-html,
-body {
-    height: 100%;
-    margin: 0;
-}
-
 .login-hero {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    gap: clamp(2rem, 5vw, 4rem);
-    padding: 0 1rem;
-    background: var(--clr-bg);
+    min-height: 90vh;
+    gap: 1rem;
 }
 
 .login-hero__form {
-    flex: 1 1 340px;
-    max-width: 480px;
+    flex: 1 1 240px;
+    max-width: 600px;
 }
 
 .login-hero__image {
-    flex: 1 1 300px;
+    flex: 0.3 1 100px;
     display: flex;
     align-items: center;
     justify-content: center;

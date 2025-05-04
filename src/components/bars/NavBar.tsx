@@ -1,16 +1,26 @@
 import { Menu, MenuItem } from '@uiw/react-menu';
 import { useTranslation } from 'react-i18next';
 import './NavBar.css';
-import Logo from '../Logo';
 import i18n from '../../i18n';
 import { useUserCtx } from '../../Providers/UserProvider';
+import { useNavigate } from 'react-router-dom';
+import { GastroappClient } from '../../api/gastroapp-client';
 
 export default function NavBar() {
   const { t } = useTranslation();
-  const userCtx = useUserCtx()
+  const userCtx = useUserCtx();
+  const navigate = useNavigate();
+  const client = new GastroappClient();
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
+  };
+
+  const handleLogout = () => {
+    client.logout();
+    userCtx.setUser(null);
+    userCtx.setIsLoggedIn(false);
+    navigate('/');
   };
 
   return (
@@ -18,9 +28,17 @@ export default function NavBar() {
       <Menu className="menu">
         {userCtx.isLoggedIn ? (
           <>
-            <MenuItem className="menu_item" text={t('navbar.welcome')+" "+userCtx.user.first_name} />
+            <MenuItem
+              className="menu_item"
+              text={t('navbar.welcome') + ' ' + userCtx.user!.first_name}
+            />
             <MenuItem className="menu_item" icon="setting-o" />
-            <MenuItem className="menu_item" icon="user" />
+            <MenuItem
+              className="menu_item"
+              icon="user"
+              text={t('navbar.logout')}
+              onClick={handleLogout}
+            />
           </>
         ) : (
           <MenuItem className="menu_item" icon="user" href="/login" />

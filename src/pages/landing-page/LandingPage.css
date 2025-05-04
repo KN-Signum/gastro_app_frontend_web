@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    padding: clamp(2rem, 7vw, 6rem) 1rem;
+    min-height: 85vh;
 }
 
 .hero__txt {

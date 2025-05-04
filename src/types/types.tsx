@@ -1,11 +1,12 @@
 import { Dispatch, SetStateAction } from "react"
 
 export type userContextType = {
-    user: userType,
-    setUser:  Dispatch<SetStateAction<userType>>,
-    isLoggedIn: boolean,
-    setIsLoggedIn: Dispatch<SetStateAction<boolean>> 
+    user: userType | null;
+    setUser: Dispatch<SetStateAction<userType | null>>;
+    isLoggedIn: boolean;
+    setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
 }
+
 export type patientContextType = {
     patients: patientType[],
     addPatient: (p: patientType) => void,

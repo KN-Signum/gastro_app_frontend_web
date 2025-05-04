@@ -46,7 +46,7 @@ export default function LoginInput() {
             throw err;
           }
           setErrors({});
-          
+
 
           try {
             const loginData: LoginRequestDto = {
@@ -117,7 +117,15 @@ export default function LoginInput() {
                   </>
                 )}
               </Row>
-              <Row className='buttons'gutter={10}>
+              <Button
+                className='button'
+                disabled={canSubmit ? !canSubmit() : true}
+                type="primary"
+                htmlType="submit"
+              >
+                {t('login.login')}
+              </Button>
+              {/* <Row className='buttons'gutter={10}>
                 <Col>
                   <Button
                     className='button'
@@ -131,7 +139,7 @@ export default function LoginInput() {
                     {t('login.reset')}
                   </Button>
                 </Col>
-              </Row>
+              </Row> */}
             </div>
           );
         }}
