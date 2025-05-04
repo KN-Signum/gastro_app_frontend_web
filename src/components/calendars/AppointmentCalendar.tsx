@@ -82,7 +82,7 @@ export default function AppointmentCalendar() {
 
 
     const getPatientById = (id: string) => {
-      const patient = [...patientCtx.patients].filter((patietn) => patietn.id === id)[0]
+      const patient = [...patientCtx.patients].filter((patient) => patient.id === id)[0]
       return patient
     }
 

@@ -7,10 +7,11 @@ export default function PatientsPreview() {
     const patientsCtx = usePatientsCtx()
     const [sorted, setSorted] = useState(patientsCtx.patients)
     const columns = [
-        { title: "Imię i nazwisko", key: "name" },
+        { title: "Imię i nazwisko", key: "name", width: 80 },
         { title: "Wiek", key: "age", width: 80 },
-        { title: "E-mail", key: "email" },
-        { title: "Nr telefonu", key: "phone_number" },
+        { title: "Wzrost", key: "height" },
+        { title: "Waga", key: "weight" },
+        { title: "Szpital", key: "hospital", width: 80 },
         { title: "CDAI Score", key: "cdai_score" },
     ];
     const handleSort = () => {

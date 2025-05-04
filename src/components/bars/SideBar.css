@@ -29,11 +29,11 @@
 .menu-large {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   font-size: 1.5vw;
   border-radius: 8px;
-  width: 150%;
+  width: 130%;
   height: 70vh;
   gap: 15%;
 }

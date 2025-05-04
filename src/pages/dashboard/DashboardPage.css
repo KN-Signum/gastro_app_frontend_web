@@ -36,7 +36,7 @@ body {
   background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  padding: 24px;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -46,7 +46,6 @@ body {
   background: var(--card-bg);
   border-radius: var(--card-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  padding: 1rem 1.25rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -67,7 +66,7 @@ body {
 
 .dashboard-main {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--gutter);
 }
 
